@@ -8,7 +8,7 @@ namespace WebAppMovie.Models
     public class Comment
     {
         public int CommentId { get; set; }
-        public string CommentMain { get; set; }
+        public string CommentItem { get; set; }
 
         //user
         public int UserId { get; set; }
