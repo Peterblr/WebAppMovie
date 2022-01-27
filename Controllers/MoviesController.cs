@@ -30,14 +30,14 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var movie = await _context.Movies
                 .FirstOrDefaultAsync(m => m.MovieId == id);
             if (movie == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(movie);
@@ -70,13 +70,13 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var movie = await _context.Movies.FindAsync(id);
             if (movie == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             return View(movie);
         }
@@ -90,7 +90,7 @@ namespace WebAppMovie.Controllers
         {
             if (id != movie.MovieId)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace WebAppMovie.Controllers
                 {
                     if (!MovieExists(movie.MovieId))
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {
@@ -121,14 +121,14 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var movie = await _context.Movies
                 .FirstOrDefaultAsync(m => m.MovieId == id);
             if (movie == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(movie);

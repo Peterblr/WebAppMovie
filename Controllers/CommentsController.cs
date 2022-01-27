@@ -31,7 +31,7 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var comment = await _context.Comments
@@ -40,7 +40,7 @@ namespace WebAppMovie.Controllers
                 .FirstOrDefaultAsync(m => m.CommentId == id);
             if (comment == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(comment);
@@ -77,13 +77,13 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var comment = await _context.Comments.FindAsync(id);
             if (comment == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             ViewData["MovieId"] = new SelectList(_context.Movies, "MovieId", "MovieId", comment.MovieId);
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", comment.UserId);
@@ -99,7 +99,7 @@ namespace WebAppMovie.Controllers
         {
             if (id != comment.CommentId)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (ModelState.IsValid)
@@ -113,7 +113,7 @@ namespace WebAppMovie.Controllers
                 {
                     if (!CommentExists(comment.CommentId))
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {
@@ -132,7 +132,7 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var comment = await _context.Comments
@@ -141,7 +141,7 @@ namespace WebAppMovie.Controllers
                 .FirstOrDefaultAsync(m => m.CommentId == id);
             if (comment == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(comment);

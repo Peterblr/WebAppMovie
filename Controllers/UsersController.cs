@@ -31,7 +31,7 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var user = await _context.Users
@@ -39,7 +39,7 @@ namespace WebAppMovie.Controllers
                 .FirstOrDefaultAsync(m => m.UserId == id);
             if (user == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(user);
@@ -74,13 +74,13 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId", user.RoleId);
             return View(user);
@@ -95,7 +95,7 @@ namespace WebAppMovie.Controllers
         {
             if (id != user.UserId)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (ModelState.IsValid)
@@ -109,7 +109,7 @@ namespace WebAppMovie.Controllers
                 {
                     if (!UserExists(user.UserId))
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {
@@ -127,7 +127,7 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var user = await _context.Users
@@ -135,7 +135,7 @@ namespace WebAppMovie.Controllers
                 .FirstOrDefaultAsync(m => m.UserId == id);
             if (user == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(user);

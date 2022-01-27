@@ -30,14 +30,14 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var producer = await _context.Producers
                 .FirstOrDefaultAsync(m => m.ProducerId == id);
             if (producer == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(producer);
@@ -70,13 +70,13 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var producer = await _context.Producers.FindAsync(id);
             if (producer == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             return View(producer);
         }
@@ -90,7 +90,7 @@ namespace WebAppMovie.Controllers
         {
             if (id != producer.ProducerId)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace WebAppMovie.Controllers
                 {
                     if (!ProducerExists(producer.ProducerId))
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {
@@ -121,14 +121,14 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var producer = await _context.Producers
                 .FirstOrDefaultAsync(m => m.ProducerId == id);
             if (producer == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(producer);

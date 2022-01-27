@@ -31,7 +31,7 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var collectionMovies = await _context.CollectionMovies
@@ -39,7 +39,7 @@ namespace WebAppMovie.Controllers
                 .FirstOrDefaultAsync(m => m.CollectionMoviesId == id);
             if (collectionMovies == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(collectionMovies);
@@ -74,13 +74,13 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var collectionMovies = await _context.CollectionMovies.FindAsync(id);
             if (collectionMovies == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", collectionMovies.UserId);
             return View(collectionMovies);
@@ -95,7 +95,7 @@ namespace WebAppMovie.Controllers
         {
             if (id != collectionMovies.CollectionMoviesId)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (ModelState.IsValid)
@@ -109,7 +109,7 @@ namespace WebAppMovie.Controllers
                 {
                     if (!CollectionMoviesExists(collectionMovies.CollectionMoviesId))
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {
@@ -127,7 +127,7 @@ namespace WebAppMovie.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var collectionMovies = await _context.CollectionMovies
@@ -135,7 +135,7 @@ namespace WebAppMovie.Controllers
                 .FirstOrDefaultAsync(m => m.CollectionMoviesId == id);
             if (collectionMovies == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(collectionMovies);
