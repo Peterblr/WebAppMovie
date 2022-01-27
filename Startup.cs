@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppMovie.Data;
+using WebAppMovie.Repository.Implementations;
+using WebAppMovie.Repository.Interfaces;
 
 namespace WebAppMovie
 {
@@ -34,6 +36,9 @@ namespace WebAppMovie
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddScoped<IActorsService, ActorsService>();
+
             services.AddControllersWithViews();
         }
 
