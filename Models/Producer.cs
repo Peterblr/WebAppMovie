@@ -22,6 +22,16 @@ namespace WebAppMovie.Models
         public string ImageUrl { get; set; }
         public string Biografy { get; set; }
 
+        //FullName
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
         //movies
         public virtual ICollection<Movie> Movies { get; set; }
     }

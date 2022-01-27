@@ -4,56 +4,116 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<br />
+<h1 class="mt-5 text-center">Index Of Producer</h1>
+<br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div style="position: fixed; top: 100px; left: 50px" class="text-white">
+    <a asp-controller="Producers" asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Add New Producer
+    </a>
+</div>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DayOfBirth)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Biografy)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DayOfBirth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Biografy)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProducerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProducerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProducerId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+    @foreach (var item in Model)
+    {
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DayOfBirth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Biografy)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <img class="rounded-pill" src="@item.ImageUrl" alt="@item.FullName" style="max-width: 150px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DayOfBirth)
+                </td>
+                <td style="max-width: 300px">
+                    @Html.DisplayFor(modelItem => item.Biografy)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ProducerId">
+                        <i class="bi bi-pencil-square"></i>Edit
+                    </a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.ProducerId">
+                        <i class="bi bi-eye"></i>Details
+                    </a>
+                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.ProducerId">
+                        <i class="bi bi-trash"></i>Delete
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    }
 </table>
+
+
+@*<h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DayOfBirth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Biografy)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DayOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Biografy)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProducerId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProducerId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProducerId">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@
