@@ -4,13 +4,16 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<br />
+<h1 class="mt-5">Edit Actor</h1>
+<br />
 
-<h4>Actor</h4>
-<hr />
-<div class="row">
+<div class="row flex-nowrap">
     <div class="col-md-4">
         <form asp-action="Edit">
+            <div class="form-group text-center">
+                <img id="ImagePreview" class="border-info rounded-pill" style="max-width: 150px" />
+            </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ActorId" />
             <div class="form-group">
@@ -39,16 +42,23 @@
                 <span asp-validation-for="Biografy" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-outline-secondary" asp-action="Index">Back to List</a>
+                <input type="submit" value="Save" class="btn btn-info float-right" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="m-0">
+        <img src="https://cs10.pikabu.ru/post_img/2019/09/02/0/1567374770171861043.jpg" alt="img">
+    </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('ImagePreview');
+            output.src = $("#ImageUrl").val();
+        })
+    </script>
 }
+
