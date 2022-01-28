@@ -20,8 +20,36 @@ namespace WebAppMovie.Controllers
             _service = service;
         }
 
+        //GET: Movies
+        //public async Task<IActionResult> Index() => View(await _service.GetAllAsync(x => x.Actors));
+
         // GET: Movies
-        public async Task<IActionResult> Index() => View(await _service.GetAllAsync());
+        public async Task<IActionResult> Index(string movieGenre, string searchString)
+        {
+            IQueryable<string> genreQuery = (IQueryable<string>)await _service.GetAllAsync(x => x.Genre.ToString());
+
+            var movies = await _service.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                movies = movies.Where(s => string.Equals(s.Title, searchString, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            if (!string.IsNullOrEmpty(movieGenre))
+            {
+                movies = movies.Where(x => string.Equals(x.Genre., movieGenre, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            var movieGenreVM = new MovieGenreViewModel
+            {
+                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
+                Movies = (List<Movie>)movies
+            };
+
+            return View(movieGenreVM);
+        }
+
+
 
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int id)
