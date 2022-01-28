@@ -7,34 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebAppMovie.Data;
 using WebAppMovie.Models;
+using WebAppMovie.Repository.Interfaces;
 
 namespace WebAppMovie.Controllers
 {
     public class MoviesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IMoviesService _service;
 
-        public MoviesController(ApplicationDbContext context)
+        public MoviesController(IMoviesService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Movies.ToListAsync());
-        }
+        public async Task<IActionResult> Index() => View(await _service.GetAllAsync());
 
         // GET: Movies/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return View("NotFound");
-            }
+            var movie = await _service.GetByIdAsync(id);
 
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.MovieId == id);
             if (movie == null)
             {
                 return View("NotFound");
@@ -58,22 +51,20 @@ namespace WebAppMovie.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(movie);
-                await _context.SaveChangesAsync();
+                await _service.AddAsync(movie);
+
+                await _service.SaveAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(movie);
         }
 
         // GET: Movies/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return View("NotFound");
-            }
+            var movie = await _service.GetByIdAsync(id);
 
-            var movie = await _context.Movies.FindAsync(id);
             if (movie == null)
             {
                 return View("NotFound");
@@ -95,37 +86,20 @@ namespace WebAppMovie.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(movie);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MovieExists(movie.MovieId))
-                    {
-                        return View("NotFound");
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await _service.UpdateAsync(movie);
+
+                await _service.SaveAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(movie);
         }
 
         // GET: Movies/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return View("NotFound");
-            }
+            var movie = await _service.GetByIdAsync(id);
 
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.MovieId == id);
             if (movie == null)
             {
                 return View("NotFound");
@@ -139,15 +113,13 @@ namespace WebAppMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
-            _context.Movies.Remove(movie);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            var movie = await _service.GetByIdAsync(id);
 
-        private bool MovieExists(int id)
-        {
-            return _context.Movies.Any(e => e.MovieId == id);
+            await _service.DeleteAsync(id);
+
+            await _service.SaveAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
