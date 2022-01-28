@@ -39,6 +39,8 @@ namespace WebAppMovie
 
             services.AddScoped<IActorsService, ActorsService>();
 
+            services.AddScoped<IProducerService, ProducerService>();
+
             services.AddControllersWithViews();
         }
 

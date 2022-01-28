@@ -7,34 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebAppMovie.Data;
 using WebAppMovie.Models;
+using WebAppMovie.Repository.Interfaces;
 
 namespace WebAppMovie.Controllers
 {
     public class ProducersController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProducerService _service;
 
-        public ProducersController(ApplicationDbContext context)
+        public ProducersController(IProducerService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: Producers
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Producers.ToListAsync());
-        }
+        public async Task<IActionResult> Index() => View(await _service.GetAllAsync());
 
         // GET: Producers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return View("NotFound");
-            }
+            var producer = await _service.GetByIdAsync(id);
 
-            var producer = await _context.Producers
-                .FirstOrDefaultAsync(m => m.ProducerId == id);
             if (producer == null)
             {
                 return View("NotFound");
@@ -58,22 +51,20 @@ namespace WebAppMovie.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(producer);
-                await _context.SaveChangesAsync();
+                await _service.AddAsync(producer);
+
+                await _service.SaveAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(producer);
         }
 
         // GET: Producers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return View("NotFound");
-            }
+            var producer = await _service.GetByIdAsync(id);
 
-            var producer = await _context.Producers.FindAsync(id);
             if (producer == null)
             {
                 return View("NotFound");
@@ -95,37 +86,20 @@ namespace WebAppMovie.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(producer);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProducerExists(producer.ProducerId))
-                    {
-                        return View("NotFound");
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await _service.UpdateAsync(producer);
+
+                await _service.SaveAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(producer);
         }
 
         // GET: Producers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return View("NotFound");
-            }
+            var producer = await _service.GetByIdAsync(id);
 
-            var producer = await _context.Producers
-                .FirstOrDefaultAsync(m => m.ProducerId == id);
             if (producer == null)
             {
                 return View("NotFound");
@@ -139,15 +113,13 @@ namespace WebAppMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var producer = await _context.Producers.FindAsync(id);
-            _context.Producers.Remove(producer);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            var producer = await _service.GetByIdAsync(id);
 
-        private bool ProducerExists(int id)
-        {
-            return _context.Producers.Any(e => e.ProducerId == id);
+            await _service.DeleteAsync(id);
+
+            await _service.SaveAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -13,45 +13,20 @@ namespace WebAppMovie.Controllers
 {
     public class ActorsController : Controller
     {
-        //private readonly ApplicationDbContext _context;
         private readonly IActorsService _service;
 
-        //public ActorsController(ApplicationDbContext context)
-        //{
-        //    _context = context;
-        //}
         public ActorsController(IActorsService service)
         {
             _service = service;
         }
 
         // GET: Actors
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.Actors.ToListAsync());
-        //}
-        public async Task<IActionResult> Index()
-        {
-            return View(await _service.GetAllAsync());
-        }
+
+        public async Task<IActionResult> Index() => View(await _service.GetAllAsync());
+
 
         // GET: Actors/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return View("NotFound");
-        //    }
 
-        //    var actor = await _context.Actors
-        //        .FirstOrDefaultAsync(m => m.ActorId == id);
-        //    if (actor == null)
-        //    {
-        //        return View("NotFound");
-        //    }
-
-        //    return View(actor);
-        //} 
         public async Task<IActionResult> Details(int id)
         {
             //if (id == null)
@@ -90,16 +65,6 @@ namespace WebAppMovie.Controllers
             }
             return View(actor);
         }
-        //public async Task<IActionResult> Create([Bind("ActorId,FirstName,LastName,DayOfBirth,ImageUrl,Biografy")] Actor actor)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(actor);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(actor);
-        //}
 
         // GET: Actors/Edit/5
         public async Task<IActionResult> Edit(int id)
@@ -117,20 +82,6 @@ namespace WebAppMovie.Controllers
             }
             return View(actor);
         }
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return View("NotFound");
-        //    }
-
-        //    var actor = await _context.Actors.FindAsync(id);
-        //    if (actor == null)
-        //    {
-        //        return View("NotFound");
-        //    }
-        //    return View(actor);
-        //}
 
         // POST: Actors/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -155,6 +106,94 @@ namespace WebAppMovie.Controllers
 
             return View(actor);
         }
+
+        // GET: Actors/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            //if (id == null)
+            //{
+            //    return View("NotFound");
+            //}
+
+            var actor = await _service.GetByIdAsync(id);
+
+            if (actor == null)
+            {
+                return View("NotFound");
+            }
+
+            return View(actor);
+        }
+
+        // POST: Actors/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var actor = await _service.GetByIdAsync(id);
+
+            await _service.DeleteAsync(id);
+
+            await _service.SaveAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        //private readonly ApplicationDbContext _context;
+
+        //public ActorsController(ApplicationDbContext context)
+        //{
+        //    _context = context;
+        //}
+
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Actors.ToListAsync());
+        //}
+
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return View("NotFound");
+        //    }
+
+        //    var actor = await _context.Actors
+        //        .FirstOrDefaultAsync(m => m.ActorId == id);
+        //    if (actor == null)
+        //    {
+        //        return View("NotFound");
+        //    }
+
+        //    return View(actor);
+        //} 
+
+        //public async Task<IActionResult> Create([Bind("ActorId,FirstName,LastName,DayOfBirth,ImageUrl,Biografy")] Actor actor)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(actor);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(actor);
+        //}
+
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return View("NotFound");
+        //    }
+
+        //    var actor = await _context.Actors.FindAsync(id);
+        //    if (actor == null)
+        //    {
+        //        return View("NotFound");
+        //    }
+        //    return View(actor);
+        //}
 
         //public async Task<IActionResult> Edit(int id, [Bind("ActorId,FirstName,LastName,DayOfBirth,ImageUrl,Biografy")] Actor actor)
         //{
@@ -186,23 +225,6 @@ namespace WebAppMovie.Controllers
         //    return View(actor);
         //}
 
-        // GET: Actors/Delete/5
-        public async Task<IActionResult> Delete(int id)
-        {
-            //if (id == null)
-            //{
-            //    return View("NotFound");
-            //}
-
-            var actor = await _service.GetByIdAsync(id);
-
-            if (actor == null)
-            {
-                return View("NotFound");
-            }
-
-            return View(actor);
-        }
         // public async Task<IActionResult> Delete(int? id)
         //{
         //    if (id == null)
@@ -220,19 +242,6 @@ namespace WebAppMovie.Controllers
         //    return View(actor);
         //}
 
-        // POST: Actors/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var actor = await _service.GetByIdAsync(id);
-
-            await _service.DeleteAsync(id);
-
-            await _service.SaveAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
         //public async Task<IActionResult> DeleteConfirmed(int id)
         //{
         //    var actor = await _context.Actors.FindAsync(id);
