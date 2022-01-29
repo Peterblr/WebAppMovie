@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 using WebAppMovie.Data;
 using WebAppMovie.Models;
 using WebAppMovie.Repository.Interfaces;
@@ -24,18 +25,31 @@ namespace WebAppMovie.Controllers
         //public async Task<IActionResult> Index() => View(await _service.GetAllAsync(x => x.Actors));
 
         // GET: Movies
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var movies = await _service.GetAllAsync();
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 movies = movies.Where(s => string.Equals(s.Title, searchString, StringComparison.CurrentCultureIgnoreCase));
             }
-
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
             switch (sortOrder)
             {
@@ -53,7 +67,13 @@ namespace WebAppMovie.Controllers
                     break;
             }
 
-            return View(movies);
+            int pageSize = 3;
+
+            int pageNumber = (page ?? 1);
+
+            return View(movies.ToPagedList(pageNumber, pageSize));
+
+            //return View(movies);
         }
 
 
