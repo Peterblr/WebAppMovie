@@ -24,10 +24,8 @@ namespace WebAppMovie.Controllers
         //public async Task<IActionResult> Index() => View(await _service.GetAllAsync(x => x.Actors));
 
         // GET: Movies
-        public async Task<IActionResult> Index(string movieGenre, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            IQueryable<string> genreQuery = (IQueryable<string>)await _service.GetAllAsync(x => x.Genre.ToString());
-
             var movies = await _service.GetAllAsync();
 
             if (!string.IsNullOrEmpty(searchString))
@@ -35,18 +33,27 @@ namespace WebAppMovie.Controllers
                 movies = movies.Where(s => string.Equals(s.Title, searchString, StringComparison.CurrentCultureIgnoreCase));
             }
 
-            if (!string.IsNullOrEmpty(movieGenre))
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            switch (sortOrder)
             {
-                movies = movies.Where(x => string.Equals(x.Genre., movieGenre, StringComparison.CurrentCultureIgnoreCase));
+                case "name_desc":
+                    movies = movies.OrderByDescending(s => s.Title);
+                    break;
+                case "Date":
+                    movies = movies.OrderBy(s => s.ReleaseDate);
+                    break;
+                case "date_desc":
+                    movies = movies.OrderByDescending(s => s.ReleaseDate);
+                    break;
+                default:
+                    movies = movies.OrderBy(s => s.Title);
+                    break;
             }
 
-            var movieGenreVM = new MovieGenreViewModel
-            {
-                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
-                Movies = (List<Movie>)movies
-            };
-
-            return View(movieGenreVM);
+            return View(movies);
         }
 
 
