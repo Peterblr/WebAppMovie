@@ -91,11 +91,16 @@ namespace WebAppMovie.Controllers
         }
 
         // GET: Movies/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var list = new List<string>() { "one", "two", "three" };
+            var movieDropdownsData = await _service.GetMovieDropdownsValues();
 
-            ViewBag.list = list;
+            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "LastName");
+            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "LastName");
+
+            //var list = new List<string>() { "one", "two", "three" };
+
+            //ViewBag.list = list;
 
             //ViewBag.ActorId = new SelectList(_actorService.GetAllAsync());
             return View();
@@ -110,12 +115,17 @@ namespace WebAppMovie.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _service.AddAsync(movie);
+                await _service.AddNewMovieAsync(movie);
 
                 await _service.SaveAsync();
 
                 return RedirectToAction(nameof(Index));
             }
+            var movieDropdownsData = await _service.GetMovieDropdownsValues();
+
+            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "LastName");
+            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "LastName");
+
             return View(movie);
         }
 

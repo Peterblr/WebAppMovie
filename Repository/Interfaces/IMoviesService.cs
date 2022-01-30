@@ -10,5 +10,8 @@ namespace WebAppMovie.Repository.Interfaces
     public interface IMoviesService : IBaseRepository<Movie>
     {
         Task<Movie> GetMovieByIdAsync(int id);
+        Task<Movie> GetMovieDropdownsValues();
+
+        Task AddNewMovieAsync(Movie data);
     }
 }
