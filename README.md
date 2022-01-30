@@ -5,4 +5,4 @@
 ## Developed by `Piotr Sviryd`
 
 
-![image](https://github.com/Peterblr/shop-react/blob/master/image.png)
+![image](https://github.com/Peterblr/WebAppMovie/blob/TryAddFullMovie/wwwroot/img/Movie.png)
