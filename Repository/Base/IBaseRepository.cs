@@ -11,6 +11,8 @@ namespace WebAppMovie.Repository.Base
         Task<IEnumerable<T>> GetAllAsync();
         Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties);
         Task<T> GetByIdAsync(int id);
+
+
         Task AddAsync(T item);
         Task UpdateAsync(T newItem);
         Task DeleteAsync(int id);

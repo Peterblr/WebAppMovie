@@ -16,10 +16,16 @@ namespace WebAppMovie.Controllers
     {
         private readonly IMoviesService _service;
 
+        //private readonly IActorsService _actorService;
+
         public MoviesController(IMoviesService service)
         {
             _service = service;
         }
+        //public MoviesController(IActorsService actorService)
+        //{
+        //    _actorService = actorService;
+        //}
 
         //GET: Movies
         //public async Task<IActionResult> Index() => View(await _service.GetAllAsync(x => x.Actors));
@@ -44,28 +50,20 @@ namespace WebAppMovie.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var movies = await _service.GetAllAsync();
+            var movies = await _service.GetAllAsync(x => x.Actors);
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 movies = movies.Where(s => string.Equals(s.Title, searchString, StringComparison.CurrentCultureIgnoreCase));
             }
 
-            switch (sortOrder)
+            movies = sortOrder switch
             {
-                case "name_desc":
-                    movies = movies.OrderByDescending(s => s.Title);
-                    break;
-                case "Date":
-                    movies = movies.OrderBy(s => s.ReleaseDate);
-                    break;
-                case "date_desc":
-                    movies = movies.OrderByDescending(s => s.ReleaseDate);
-                    break;
-                default:
-                    movies = movies.OrderBy(s => s.Title);
-                    break;
-            }
+                "name_desc" => movies.OrderByDescending(s => s.Title),
+                "Date" => movies.OrderBy(s => s.ReleaseDate),
+                "date_desc" => movies.OrderByDescending(s => s.ReleaseDate),
+                _ => movies.OrderBy(s => s.Title),
+            };
 
             int pageSize = 3;
 
@@ -81,7 +79,8 @@ namespace WebAppMovie.Controllers
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var movie = await _service.GetByIdAsync(id);
+            //var movie = await _service.GetByIdAsync(id);
+            var movie = await _service.GetMovieByIdAsync(id);
 
             if (movie == null)
             {
@@ -94,6 +93,11 @@ namespace WebAppMovie.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
+            var list = new List<string>() { "one", "two", "three" };
+
+            ViewBag.list = list;
+
+            //ViewBag.ActorId = new SelectList(_actorService.GetAllAsync());
             return View();
         }
 

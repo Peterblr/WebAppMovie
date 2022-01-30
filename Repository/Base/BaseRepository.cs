@@ -42,7 +42,6 @@ namespace WebAppMovie.Repository.Base
 
         public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FindAsync(id);
 
-
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
