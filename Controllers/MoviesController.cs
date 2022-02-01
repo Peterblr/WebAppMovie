@@ -9,6 +9,7 @@ using X.PagedList;
 using WebAppMovie.Data;
 using WebAppMovie.Models;
 using WebAppMovie.Repository.Interfaces;
+using NToastNotify;
 
 namespace WebAppMovie.Controllers
 {
@@ -16,11 +17,15 @@ namespace WebAppMovie.Controllers
     {
         private readonly IMoviesService _service;
 
+        private readonly IToastNotification _toastNotification;
+
         //private readonly IActorsService _actorService;
 
-        public MoviesController(IMoviesService service)
+        public MoviesController(IMoviesService service, IToastNotification toastNotification)
         {
             _service = service;
+
+            _toastNotification = toastNotification;
         }
         //public MoviesController(IActorsService actorService)
         //{
@@ -119,6 +124,8 @@ namespace WebAppMovie.Controllers
 
                 await _service.SaveAsync();
 
+                _toastNotification.AddSuccessToastMessage("Actor created");
+
                 return RedirectToAction(nameof(Index));
             }
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
@@ -159,6 +166,8 @@ namespace WebAppMovie.Controllers
 
                 await _service.SaveAsync();
 
+                _toastNotification.AddSuccessToastMessage("Actor created");
+
                 return RedirectToAction(nameof(Index));
             }
             return View(movie);
@@ -187,6 +196,8 @@ namespace WebAppMovie.Controllers
             await _service.DeleteAsync(id);
 
             await _service.SaveAsync();
+
+            _toastNotification.AddAlertToastMessage("Actor deleted");
 
             return RedirectToAction(nameof(Index));
         }

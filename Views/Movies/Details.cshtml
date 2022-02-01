@@ -34,7 +34,7 @@
                                     <div class="column text-center">
                                         <img class="border-info rounded-circle" src="@producer.ImageUrl" style="max-width: 50px" />
                                         <br />
-                                        <a asp-controller="Actors" asp-action="Details" asp-route-id="@producer.ProducerId">@producer.FullName</a>
+                                        <a asp-controller="Producers" asp-action="Details" asp-route-id="@producer.ProducerId">@producer.FullName</a>
                                     </div>
                                 }
                             </div>
@@ -53,7 +53,7 @@
                                 }
                             </div>
                         </p>
-                        <p class="card-text"><b>Category: </b>@Model.Genre</p>
+                        <p class="card-text"><b>Genre: </b>@Model.Genre</p>
                         <p class="card-text"><b>Category: </b>@Model.Rating</p>
                         <p class="card-text"><b>Day Of Release: </b>@Model.ReleaseDate.ToShortDateString()</p>
 
@@ -69,7 +69,7 @@
                                 <i class="bi bi-pencil-square"></i>Edit
                             </a>
                             <a class="btn btn-outline-primary float-right" asp-action="Index">
-                                Back to List
+                                Show All
                             </a>
                         </p>
                     </div>

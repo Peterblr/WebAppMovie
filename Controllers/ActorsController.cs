@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using WebAppMovie.Data;
 using WebAppMovie.Models;
 using WebAppMovie.Repository.Interfaces;
@@ -15,9 +16,13 @@ namespace WebAppMovie.Controllers
     {
         private readonly IActorsService _service;
 
-        public ActorsController(IActorsService service)
+        private readonly IToastNotification _toastNotification;
+
+        public ActorsController(IActorsService service, IToastNotification toastNotification)
         {
             _service = service;
+
+            _toastNotification = toastNotification;
         }
 
         // GET: Actors
@@ -61,6 +66,9 @@ namespace WebAppMovie.Controllers
             {
                 await _service.AddAsync(actor);
                 await _service.SaveAsync();
+
+                _toastNotification.AddSuccessToastMessage("Actor created");
+
                 return RedirectToAction(nameof(Index));
             }
             return View(actor);
@@ -101,6 +109,8 @@ namespace WebAppMovie.Controllers
 
                 await _service.SaveAsync();
 
+                _toastNotification.AddSuccessToastMessage("Actor updated");
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -135,6 +145,8 @@ namespace WebAppMovie.Controllers
             await _service.DeleteAsync(id);
 
             await _service.SaveAsync();
+
+            _toastNotification.AddAlertToastMessage("Actor deleted");
 
             return RedirectToAction(nameof(Index));
         }
