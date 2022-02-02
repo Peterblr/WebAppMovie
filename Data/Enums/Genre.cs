@@ -8,6 +8,8 @@ namespace WebAppMovie.Data.Enums
     public enum Genre
     {
         Action = 1,
+        Adventure,
+        Cartoon,
         Comedy,
         Documentary,
         Drama,

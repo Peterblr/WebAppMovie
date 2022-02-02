@@ -58,7 +58,7 @@ namespace WebAppMovie.Controllers
             {
                 await _service.AddAsync(producer);
 
-                await _service.SaveAsync();
+                //await _service.SaveAsync();
 
                 _toastNotification.AddSuccessToastMessage("Actor created");
 
@@ -95,7 +95,7 @@ namespace WebAppMovie.Controllers
             {
                 await _service.UpdateAsync(producer);
 
-                await _service.SaveAsync();
+                //await _service.SaveAsync();
 
                 _toastNotification.AddSuccessToastMessage("Actor created");
 
@@ -126,7 +126,7 @@ namespace WebAppMovie.Controllers
 
             await _service.DeleteAsync(id);
 
-            await _service.SaveAsync();
+            //await _service.SaveAsync();
 
             _toastNotification.AddAlertToastMessage("Actor deleted");
 

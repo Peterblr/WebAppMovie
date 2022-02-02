@@ -19,13 +19,17 @@ namespace WebAppMovie.Controllers
 
         private readonly IToastNotification _toastNotification;
 
+        private readonly IProducerService _producer;
+
         //private readonly IActorsService _actorService;
 
-        public MoviesController(IMoviesService service, IToastNotification toastNotification)
+        public MoviesController(IMoviesService service, IToastNotification toastNotification, IProducerService producer)
         {
             _service = service;
 
             _toastNotification = toastNotification;
+
+            _producer = producer;
         }
         //public MoviesController(IActorsService actorService)
         //{
@@ -100,8 +104,13 @@ namespace WebAppMovie.Controllers
         {
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
 
-            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "LastName");
-            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "LastName");
+            var producerTest = _producer.GetAllAsync();
+
+
+            //ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "LastName");
+            //ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "LastName");
+
+            ViewBag.ProducerTest = new SelectList(producerTest.Result);
 
             //var list = new List<string>() { "one", "two", "three" };
 
@@ -122,7 +131,7 @@ namespace WebAppMovie.Controllers
             {
                 await _service.AddNewMovieAsync(movie);
 
-                await _service.SaveAsync();
+                //await _service.SaveAsync();
 
                 _toastNotification.AddSuccessToastMessage("Actor created");
 
@@ -164,7 +173,7 @@ namespace WebAppMovie.Controllers
             {
                 await _service.UpdateAsync(movie);
 
-                await _service.SaveAsync();
+                //await _service.SaveAsync();
 
                 _toastNotification.AddSuccessToastMessage("Actor created");
 
@@ -195,7 +204,7 @@ namespace WebAppMovie.Controllers
 
             await _service.DeleteAsync(id);
 
-            await _service.SaveAsync();
+            //await _service.SaveAsync();
 
             _toastNotification.AddAlertToastMessage("Actor deleted");
 

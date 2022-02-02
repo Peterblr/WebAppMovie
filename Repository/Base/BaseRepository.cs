@@ -17,7 +17,12 @@ namespace WebAppMovie.Repository.Base
             _context = context;
         }
 
-        public async Task AddAsync(T item) => await _context.Set<T>().AddAsync(item);
+        public async Task AddAsync(T item)
+        {
+            await _context.Set<T>().AddAsync(item);
+
+            await _context.SaveChangesAsync();
+        }
 
         public async Task DeleteAsync(int id)
         {
@@ -27,6 +32,8 @@ namespace WebAppMovie.Repository.Base
             {
                 _context.Set<T>().Remove(item);
             }
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
@@ -42,10 +49,10 @@ namespace WebAppMovie.Repository.Base
 
         public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FindAsync(id);
 
-        public async Task SaveAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
+        //public async Task SaveAsync()
+        //{
+        //    await _context.SaveChangesAsync();
+        //}
 
         public async Task UpdateAsync(T newItem)
         {
