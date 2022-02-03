@@ -104,13 +104,13 @@ namespace WebAppMovie.Controllers
         {
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
 
-            var producerTest = _producer.GetAllAsync();
+            //var producerTest = _producer.GetAllAsync();
 
 
-            //ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "LastName");
-            //ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "LastName");
+            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "LastName");
+            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "LastName");
 
-            ViewBag.ProducerTest = new SelectList(producerTest.Result);
+            //ViewBag.ProducerTest = new SelectList(producerTest.Result);
 
             //var list = new List<string>() { "one", "two", "three" };
 
@@ -125,13 +125,13 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating")] Movie movie)
+        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Ratin,ActorId,ProducerId")] Movie movie)
         {
             if (ModelState.IsValid)
             {
-                await _service.AddNewMovieAsync(movie);
+                //await _service.AddNewMovieAsync(movie);
 
-                //await _service.SaveAsync();
+                await _service.AddAsync(movie);
 
                 _toastNotification.AddSuccessToastMessage("Actor created");
 
@@ -162,7 +162,7 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ActorId,ProducerId")] Movie movie)
         {
             if (id != movie.MovieId)
             {

@@ -21,11 +21,11 @@ namespace WebAppMovie.Data
         public DbSet<Score> Scores { get; set; }
         public DbSet<User> Users { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder mb)
-        {
-            mb.Entity<Actor>().HasKey(u => u.ActorId);
+        //protected override void OnModelCreating(ModelBuilder mb)
+        //{
+        //    mb.Entity<Actor>().HasKey(u => u.ActorId);
 
-            mb.Entity<Movie>().HasKey(t => t.MovieId);
-        }
+        //    mb.Entity<Movie>().HasKey(t => t.MovieId);
+        //}
     }
 }
