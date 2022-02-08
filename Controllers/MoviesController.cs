@@ -10,9 +10,11 @@ using WebAppMovie.Data;
 using WebAppMovie.Models;
 using WebAppMovie.Repository.Interfaces;
 using NToastNotify;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAppMovie.Controllers
 {
+    //[Authorize]
     public class MoviesController : Controller
     {
         private readonly IMoviesService _service;

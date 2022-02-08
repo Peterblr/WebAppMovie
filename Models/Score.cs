@@ -10,7 +10,7 @@ namespace WebAppMovie.Models
         public int ScoreId { get; set; }
         public double ScoreNumber { get; set; }
         //User
-        public int UserId { get; set; }
+        //public int UserId { get; set; }
         //Movies
         public int MovieId { get; set; }
     }

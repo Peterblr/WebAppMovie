@@ -11,8 +11,8 @@ namespace WebAppMovie.Models
         public string CommentItem { get; set; }
 
         //user
-        public int UserId { get; set; }
-        public User User { get; set; }
+        //public int UserId { get; set; }
+        //public User User { get; set; }
 
         //movie
         public int MovieId { get; set; }

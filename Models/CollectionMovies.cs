@@ -9,9 +9,9 @@ namespace WebAppMovie.Models
     {
         public int CollectionMoviesId { get; set; }
 
-        public int UserId { get; set; }
+        //public int UserId { get; set; }
 
-        public User User { get; set; }
+        //public User User { get; set; }
 
         public virtual ICollection<Movie> Movies { get; set; }
 

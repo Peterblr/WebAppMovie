@@ -19,7 +19,6 @@ namespace WebAppMovie.Data
         public DbSet<Producer> Producers { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Score> Scores { get; set; }
-        public DbSet<User> Users { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder mb)
         //{
