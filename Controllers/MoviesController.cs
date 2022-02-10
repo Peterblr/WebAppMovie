@@ -107,8 +107,8 @@ namespace WebAppMovie.Controllers
             //var producerTest = _producer.GetAllAsync();
 
 
-            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "LastName");
-            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "LastName");
+            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "FullName");
+            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "FullName");
 
             //ViewBag.ProducerTest = new SelectList(producerTest.Result);
 
@@ -139,8 +139,8 @@ namespace WebAppMovie.Controllers
             }
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
 
-            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "LastName");
-            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "LastName");
+            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "FullName");
+            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "FullName");
 
             return View(movie);
         }
