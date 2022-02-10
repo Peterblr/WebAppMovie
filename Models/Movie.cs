@@ -10,10 +10,12 @@ namespace WebAppMovie.Models
     public class Movie
     {
         public int MovieId { get; set; }
+
         [Display(Name = "Title"), StringLength(60, MinimumLength = 3)]
         public string Title { get; set; }
 
         public string ImageUrl { get; set; }
+
         public string Description { get; set; }
         [Display(Name = "Release Date"), DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
@@ -30,10 +32,10 @@ namespace WebAppMovie.Models
         //producers
         public virtual ICollection<Producer> Producers { get; set; }
 
-        //comments        
-        public virtual ICollection<Comment> Comments { get; set; }
+        ////comments        
+        //public virtual ICollection<Comment> Comments { get; set; }
 
-        //score
-        public virtual ICollection<Score> Scores { get; set; }
+        ////score
+        //public virtual ICollection<Score> Scores { get; set; }
     }
 }

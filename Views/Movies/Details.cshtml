@@ -24,7 +24,6 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-
                         <p class="card-text">
                             <b>Producer: </b>
                             <hr />
@@ -56,11 +55,8 @@
                         <p class="card-text"><b>Genre: </b>@Model.Genre</p>
                         <p class="card-text"><b>Category: </b>@Model.Rating</p>
                         <p class="card-text"><b>Day Of Release: </b>@Model.ReleaseDate.ToShortDateString()</p>
-
                     </div>
-
                 </div>
-
                 <div class="col-md-12">
                     <p class="card-text">@Model.Description</p>
                     <div class="card-footer">
@@ -68,9 +64,7 @@
                             <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.MovieId">
                                 <i class="bi bi-pencil-square"></i>Edit
                             </a>
-                            <a class="btn btn-outline-primary float-right" asp-action="Index">
-                                Show All
-                            </a>
+                            <a class="btn btn-outline-primary float-right" asp-action="Index">Back to List</a>
                         </p>
                     </div>
                 </div>

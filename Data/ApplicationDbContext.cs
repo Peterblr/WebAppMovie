@@ -13,19 +13,9 @@ namespace WebAppMovie.Data
         {
         }
         public DbSet<Actor> Actors { get; set; }
-        public DbSet<CollectionMovies> CollectionMovies { get; set; }
-        public DbSet<Comment> Comments { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Producer> Producers { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<Score> Scores { get; set; }
-        public DbSet<User> Users { get; set; }
-
-        //protected override void OnModelCreating(ModelBuilder mb)
-        //{
-        //    mb.Entity<Actor>().HasKey(u => u.ActorId);
-
-        //    mb.Entity<Movie>().HasKey(t => t.MovieId);
-        //}
+        //public DbSet<Score> Scores { get; set; }
+        public DbSet<Person> Persons { get; set; }
     }
 }

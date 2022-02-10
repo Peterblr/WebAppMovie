@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace WebAppMovie.Models
 {
-    public class User
+    public class Person
     {
-        public int UserId { get; set; }
+        public int PersonId { get; set; }
 
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
         [Column("FirstName")]
@@ -26,7 +26,7 @@ namespace WebAppMovie.Models
 
         public string Username { get; set; }
 
-        public string? ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
         [Required(ErrorMessage = "Email Address is required")]
         [DisplayName("Email Address")]
@@ -35,17 +35,11 @@ namespace WebAppMovie.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        //Role
-        public int RoleId { get; set; }
-        public Role Role { get; set; }
 
-        //Collection Movies
-        public virtual ICollection<CollectionMovies> CollectionMovies { get; set; }
+        ////Comments
+        //public virtual ICollection<Comment> Comments { get; set; }
 
-        //Comments
-        public virtual ICollection<Comment> Comments { get; set; }
-
-        //scores
-        public virtual ICollection<Score> Scores { get; set; }
+        ////scores
+        //public virtual ICollection<Score> Scores { get; set; }
     }
 }

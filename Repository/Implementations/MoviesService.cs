@@ -64,8 +64,8 @@ namespace WebAppMovie.Repository.Implementations
         {
             var response = new NewMovieDropdown()
             {
-                Actors = await _context.Actors.OrderBy(n => n.LastName).ToListAsync(),
-                Producers = await _context.Producers.OrderBy(n => n.LastName).ToListAsync()
+                Actors = await _context.Actors.OrderBy(n => n.FullName).ToListAsync(),
+                Producers = await _context.Producers.OrderBy(n => n.FullName).ToListAsync()
             };
 
             return response;

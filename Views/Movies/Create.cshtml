@@ -13,7 +13,6 @@
         <p>
             <h4>Create a new movie</h4>
         </p>
-
         <div class="row flex-nowrap">
             <div class="form-group text-center">
                 <img id="ImagePreview" style="max-width: 350px" />
@@ -21,9 +20,7 @@
             <div class="col-md-8 offset-2">
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
                     <div class="row">
-
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Title" class="control-label"></label>
@@ -52,17 +49,14 @@
                                 <select asp-for="Rating" class="form-control" asp-items="Html.GetEnumSelectList<Rating>()"></select>
                                 <span asp-validation-for="Rating" class="text-danger"></span>
                             </div>
-
-
                             <div class="form-group">
                                 <label asp-for="Producers" class="control-label"></label>
                                 <select asp-for="Producers" class="form-control" asp-items="ViewBag.Producers"></select>
                                 <span asp-validation-for="Producers" class="text-danger"></span>
                             </div>
-
                             <div class="form-group">
                                 <label asp-for="Actors" class="control-label"></label>
-                                <select asp-for="Actors" class="form-control" asp-items="ViewBag.Actors.ActorId"></select>
+                                <select asp-for="Actors" class="form-control" asp-items="ViewBag.Actors"></select>
                                 <span asp-validation-for="Actors" class="text-danger"></span>
                             </div>
                         </div>
@@ -76,14 +70,11 @@
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-outline-success float-right" />
-                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                        <a class="btn btn-outline-secondary" asp-action="Index">Back to List</a>
                     </div>
-
                 </form>
-
             </div>
         </div>
-
     </div>
 </div>
 
