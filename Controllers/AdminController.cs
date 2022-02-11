@@ -1,13 +1,13 @@
-﻿using Cinema.ViewModels;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAppMovie.Data.ViewModels;
 
-namespace Cinema.Controllers
+namespace WebAppMovie.Data.Controllers
 {
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
@@ -28,9 +28,17 @@ namespace Cinema.Controllers
         }
 
         [HttpGet]
+        public IActionResult ListUsers()
+        {
+            var users = _userManager.Users.OrderBy(x => x.UserName).ToList();
+
+            return View(users);
+        }
+
+        [HttpGet]
         public IActionResult ListRoles()
         {
-            var roles = _roleManager.Roles.ToList();
+            var roles = _roleManager.Roles.OrderBy(x => x.Name).ToList();
 
             return View(roles);
         }

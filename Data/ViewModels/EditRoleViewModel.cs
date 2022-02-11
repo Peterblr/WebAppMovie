@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cinema.ViewModels
+namespace WebAppMovie.Data.ViewModels
 {
     public class EditRoleViewModel
     {
