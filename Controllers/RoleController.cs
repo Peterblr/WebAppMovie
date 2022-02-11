@@ -4,23 +4,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAppMovie.Data;
 
 namespace WebAppMovie.Controllers
 {
     public class RoleController : Controller
     {
-        RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public RoleController(RoleManager<IdentityRole> roleManager)
+
+        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
             var roles = _roleManager.Roles.ToList();
 
-            return View(roles);
+            var users = _userManager.Users.ToList();
+
+            //return View(roles);
+            return View(users);
+
+
         }
 
         public IActionResult Create()
