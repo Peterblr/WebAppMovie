@@ -1,6 +1,15 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
+* {
+    font-family: 'Acme';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -63,7 +72,9 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-color: darkgray;
+    /*    background: linear-gradient(320deg, #0d6ac3, #c87ae3, #fd9101);
+*/ /*    background-color: darkgray;
+*/
 }
 
 .footer {
