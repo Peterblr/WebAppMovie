@@ -23,7 +23,6 @@ namespace WebAppMovie.Controllers
 
         private readonly IProducerService _producer;
 
-        //private readonly IActorsService _actorService;
 
         public MoviesController(IMoviesService service, IToastNotification toastNotification, IProducerService producer)
         {
@@ -33,13 +32,6 @@ namespace WebAppMovie.Controllers
 
             _producer = producer;
         }
-        //public MoviesController(IActorsService actorService)
-        //{
-        //    _actorService = actorService;
-        //}
-
-        //GET: Movies
-        //public async Task<IActionResult> Index() => View(await _service.GetAllAsync(x => x.Actors));
 
         // GET: Movies
         public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? page)
@@ -81,16 +73,11 @@ namespace WebAppMovie.Controllers
             int pageNumber = (page ?? 1);
 
             return View(movies.ToPagedList(pageNumber, pageSize));
-
-            //return View(movies);
         }
-
-
 
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            //var movie = await _service.GetByIdAsync(id);
             var movie = await _service.GetMovieByIdAsync(id);
 
             if (movie == null)
@@ -106,19 +93,9 @@ namespace WebAppMovie.Controllers
         {
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
 
-            //var producerTest = _producer.GetAllAsync();
+            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "FullName");
+            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "FullName");
 
-
-            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "LastName");
-            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "LastName");
-
-            //ViewBag.ProducerTest = new SelectList(producerTest.Result);
-
-            //var list = new List<string>() { "one", "two", "three" };
-
-            //ViewBag.list = list;
-
-            //ViewBag.ActorId = new SelectList(_actorService.GetAllAsync());
             return View();
         }
 
@@ -131,18 +108,16 @@ namespace WebAppMovie.Controllers
         {
             if (ModelState.IsValid)
             {
-                //await _service.AddNewMovieAsync(movie);
-
                 await _service.AddAsync(movie);
 
-                _toastNotification.AddSuccessToastMessage("Actor created");
+                _toastNotification.AddSuccessToastMessage("Movie created");
 
                 return RedirectToAction(nameof(Index));
             }
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
 
-            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "LastName");
-            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "LastName");
+            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "FullName");
+            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "FullName");
 
             return View(movie);
         }
@@ -175,9 +150,7 @@ namespace WebAppMovie.Controllers
             {
                 await _service.UpdateAsync(movie);
 
-                //await _service.SaveAsync();
-
-                _toastNotification.AddSuccessToastMessage("Actor created");
+                _toastNotification.AddSuccessToastMessage("Movie created");
 
                 return RedirectToAction(nameof(Index));
             }
@@ -206,9 +179,7 @@ namespace WebAppMovie.Controllers
 
             await _service.DeleteAsync(id);
 
-            //await _service.SaveAsync();
-
-            _toastNotification.AddAlertToastMessage("Actor deleted");
+            _toastNotification.AddAlertToastMessage("Movie deleted");
 
             return RedirectToAction(nameof(Index));
         }

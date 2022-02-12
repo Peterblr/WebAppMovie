@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAppMovie.Models
+namespace WebAppMovie.Data.ViewModels
 {
-    public class Role
+    public class RolesUserViewModel
     {
-        public int RoleId { get; set; }
-
+        public string RoleId { get; set; }
         public string RoleName { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

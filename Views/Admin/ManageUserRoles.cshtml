@@ -1,0 +1,41 @@
+﻿@model List<WebAppMovie.Data.ViewModels.RolesUserViewModel>
+
+@{
+    ViewData["Title"] = "Manage User Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userId = ViewBag.userId;
+}
+
+<br />
+<h1 class="mt-5 text-center">Manage User Roles</h1>
+<br />
+
+<hr />
+
+
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            <h2>Manage user roles by </h2>
+            <h1 class="text-danger">@ViewBag.userName</h1>
+        </div>
+        <div class="card-body">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="form-check m-1">
+                    <input type="hidden" asp-for="@Model[i].RoleId" />
+                    <input type="hidden" asp-for="@Model[i].RoleName" />
+                    <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                    <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                        @Model[i].RoleName
+                    </label>
+                </div>
+            }
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-footer">
+            <input type="submit" value="Update" class="btn btn-primary" />
+            <a asp-action="EditUser" asp-route-id="@userId" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </div>
+</form> 
