@@ -1,6 +1,10 @@
 ﻿@model IEnumerable<WebAppMovie.Models.Movie>
 @using X.PagedList.Mvc.Core
 @using X.PagedList;
+
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService authorizationService;
+
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
@@ -28,6 +32,7 @@
                             <p class="card-text">
                                 <h5 class="card-title">
                                     @item.Title
+
                                     <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.MovieId"><i class="bi bi-pencil-square"></i></a>
                                 </h5>
                             </p>
