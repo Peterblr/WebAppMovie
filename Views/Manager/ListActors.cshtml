@@ -1,0 +1,111 @@
+﻿@model IEnumerable<WebAppMovie.Models.Actor>
+
+@{
+    ViewData["Title"] = "List Actors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@*@{
+        ViewData["Title"] = "Index";
+
+
+        //Pager pager = ViewBag.Pager;
+
+        //SortModel sortModel = (SortModel)ViewData["sortModel"];
+    }*@
+
+<br />
+<h1 class="mt-5 text-center">List Actors</h1>
+<br />
+
+@*<partial name="_pager" model="@pager" />*@
+
+<div style="position: fixed; top: 100px; left: 50px" class="text-white">
+    <a asp-controller="Actors" asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Create Actor
+    </a>
+</div>
+
+@*<div class="col-4 p-0 justify-content-center mt-1">
+        <form class="form-inline my-2 my-lg-0 " asp-controller="Movie" asp-action="Index">
+            <input name="searchText"
+                   type="text"
+                   class="form-control"
+                   placeholder="Search"
+                   value="@ViewBag.searchText" />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+    </div>*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @*<i class="@ViewData["SortIconFullName"]" aria-hidden="true"></i>*@
+                @*<a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamFullName"]">*@
+
+                @*<i class="@sortModel.GetColumn("title").SortIcon" aria-hidden="true"></i>*@
+                @*<a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("title").SortExpression">*@
+                <a>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </a>
+            </th>
+
+            <th>
+                @*<i class="@ViewData["SortIconBio"]" aria-hidden="true"></i>*@
+                @*<a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamBio"]">*@
+
+                @*<i class="@sortModel.GetColumn("actor").SortIcon" aria-hidden="true"></i>*@
+                @*<a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("actor").SortExpression">*@
+                <a>
+                    @Html.DisplayNameFor(model => model.DayOfBirth)
+                </a>
+            </th>
+            <th>
+                @*<i class="@ViewData["SortIconBio"]" aria-hidden="true"></i>*@
+                @*<a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamBio"]">*@
+
+                @*<i class="@sortModel.GetColumn("actor").SortIcon" aria-hidden="true"></i>*@
+                @*<a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("actor").SortExpression">*@
+                <a>
+                    @Html.DisplayNameFor(model => model.Biografy)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+
+        <tbody>
+            <tr>
+                <td>
+                    <img class="rounded-pill" src="@item.ImageUrl" alt="@item.ImageUrl" style="max-width: 100px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DayOfBirth)
+                </td>
+                <td style="max-width: 300px">
+                    ----///----
+                    @*@Html.DisplayFor(modelItem => item.Biografy)*@
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Actors" asp-action="Edit" asp-route-id="@item.ActorId">
+                        <i class="bi bi-pencil-square"></i>Edit
+                    </a>
+                    <a class="btn btn-info" asp-controller="Actors" asp-action="Details" asp-route-id="@item.ActorId">
+                        <i class="bi bi-eye"></i>Details
+                    </a>
+                    <a class="btn btn-danger text-white" asp-controller="Actors" asp-action="Delete" asp-route-id="@item.ActorId">
+                        <i class="bi bi-trash"></i>Delete
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
