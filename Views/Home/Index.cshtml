@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebAppMovie.Models.Movie>
+@using X.PagedList.Mvc.Core
+@using X.PagedList;
+
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService authorizationService;
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<br />
+<h1 class="mt-5">Index Of Movies</h1>
+<br />
+
+<div class="card-deck">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.Title
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <img src="@item.ImageUrl" width="100%" alt="@item.Title">
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card-body">
+                            <p class="card-text"><b>Day Of Release: </b>@item.ReleaseDate.ToShortDateString()</p>
+                            <p class="card-text"><b>Genre: </b>@item.Genre</p>
+                            <p class="card-text"><b>Rating: </b>@item.Rating</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.MovieId">
+                                    <i class="bi bi-eye-fill"></i> Show Details
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<br />
+
+@Html.PagedListPager(
+    (IPagedList)Model,
+    page => Url.Action("Index", new { page }),
+    new X.PagedList.Web.Common.PagedListRenderOptions
+    {
+        ContainerDivClasses = new[] { "navigation" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" },
+        DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+    })
+

@@ -14,14 +14,14 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebAppMovie.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = "admin, manager")]
     public class MoviesController : Controller
     {
         private readonly IMoviesService _service;
 
-        private readonly IToastNotification _toastNotification;
-
         private readonly IProducerService _producer;
+
+        private readonly IToastNotification _toastNotification;
 
 
         public MoviesController(IMoviesService service, IToastNotification toastNotification, IProducerService producer)

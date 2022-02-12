@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <br />
@@ -63,9 +64,6 @@
                     <p class="card-text">@Model.Description</p>
                     <div class="card-footer">
                         <p class="card-text">
-                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.MovieId">
-                                <i class="bi bi-pencil-square"></i>Edit
-                            </a>
                             <a class="btn btn-outline-primary float-right" asp-action="Index">Back to List</a>
                         </p>
                     </div>
@@ -74,4 +72,6 @@
         </div>
     </div>
 </div>
+
+
 
