@@ -28,8 +28,7 @@ namespace WebAppMovie.Controllers
             _serviceProducer = serviceProducer;
         }
 
-        // GET: Manager
-        public async Task<IActionResult> ListMovies(string sortExpression = "")
+        private SortModel ApplySort(string sortExpression)
         {
             ViewData["SortParamTitle"] = "title";
             ViewData["SortParamDesc"] = "description";
@@ -69,6 +68,14 @@ namespace WebAppMovie.Controllers
                     ViewData["SortParamTitle"] = "title_desc";
                     break;
             }
+
+            return sortModel;
+        }
+
+        // GET: Manager
+        public async Task<IActionResult> ListMovies(string sortExpression = "")
+        {
+            SortModel sortModel = ApplySort(sortExpression);
 
             return View(await _serviceMovie.GetAllMoviesAsync(sortModel.SortedProperty, sortModel.SortedOrder));
         }
