@@ -11,12 +11,16 @@ namespace WebAppMovie.Models
     {
         public int MovieId { get; set; }
 
+        [Required(ErrorMessage = "Title is required")]
         [Display(Name = "Title"), StringLength(60, MinimumLength = 3)]
         public string Title { get; set; }
 
+        [Required(ErrorMessage = "Image is required")]
         public string ImageUrl { get; set; }
 
+        [StringLength(500, MinimumLength = 3, ErrorMessage = "Descriptipn cannot be longer than 500 characters and less 3.")]
         public string Description { get; set; }
+
         [Display(Name = "Release Date"), DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
 

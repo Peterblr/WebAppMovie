@@ -90,7 +90,7 @@ namespace WebAppMovie.Repository.Implementations
             }
             else
             {
-                movies = _context.Movies.Include(n => n.Actors).ToList();
+                movies = _context.Movies.Include(a => a.Actors).Include(p => p.Producers).ToList();
             }
 
             movies = DoSort(movies, sortProperty, sortOrder);

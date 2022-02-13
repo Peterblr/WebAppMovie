@@ -29,6 +29,15 @@ namespace WebAppMovie.Controllers
         }
 
 
+        private SelectList GetActors()
+        {
+            PaginatedList<Actor> actors = _serviceActor.GetAllActors("FullName", SortOrder.Ascending, "", 1, 100);
+
+            var listActors = new SelectList(actors, "ActorId", "FullName");
+
+            return listActors;
+        }
+
         //GET: Manager
         public async Task<IActionResult> ListMovies(string sortExpression = "", string searchText = "", int pg = 1, int pageSize = 3)
         {
@@ -66,45 +75,30 @@ namespace WebAppMovie.Controllers
             return View(await _serviceProducer.GetAllAsync());
         }
 
-        //// GET: Manager/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Manager/Create
+        public IActionResult CreateMovie()
+        {
+            Movie movie = new Movie();
 
-        //    var movie = await _context.Movies
-        //        .FirstOrDefaultAsync(m => m.MovieId == id);
-        //    if (movie == null)
-        //    {
-        //        return NotFound();
-        //    }
+            ViewBag.Actors = GetActors();
 
-        //    return View(movie);
-        //}
+            return View(movie);
+        }
 
-        //// GET: Manager/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: Manager/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating")] Movie movie)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(movie);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(movie);
-        //}
+        // POST: Manager/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateMovie([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating")] Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                await _serviceMovie.AddAsync(movie);
+                return RedirectToAction(nameof(ListMovies));
+            }
+            return View(movie);
+        }
 
         //// GET: Manager/Edit/5
         //public async Task<IActionResult> Edit(int? id)
