@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebAppMovie.Data;
+using WebAppMovie.Data.Enums;
 using WebAppMovie.Models;
 using WebAppMovie.Repository.Interfaces;
 
@@ -27,9 +28,49 @@ namespace WebAppMovie.Controllers
         }
 
         // GET: Manager
-        public async Task<IActionResult> ListMovies()
+        public async Task<IActionResult> ListMovies(string sortExpression = "")
         {
-            return View(await _serviceMovie.GetAllAsync());
+            ViewData["SortParamTitle"] = "title";
+            ViewData["SortParamDesc"] = "description";
+
+            ViewData["SortIconTitle"] = "";
+            ViewData["SortIconDesc"] = "";
+
+            SortOrder sortOrder;
+            string sortProperty;
+
+            switch (sortExpression.ToLower())
+            {
+                case "title_desc":
+                    sortOrder = SortOrder.Descending;
+                    sortProperty = "title";
+                    ViewData["SortIconTitle"] = "bi bi-file-arrow-up-fill";
+                    ViewData["SortParamTitle"] = "title";
+                    break;
+
+                case "description":
+                    sortOrder = SortOrder.Ascending;
+                    sortProperty = "description";
+                    ViewData["SortIconDesc"] = "bi bi-file-arrow-down-fill";
+                    ViewData["SortParamDesc"] = "description_desc";
+                    break;
+
+                case "description_desc":
+                    sortOrder = SortOrder.Descending;
+                    sortProperty = "description";
+                    ViewData["SortIconDesc"] = "bi bi-file-arrow-up-fill";
+                    ViewData["SortParamDesc"] = "description";
+                    break;
+
+                default:
+                    sortOrder = SortOrder.Ascending;
+                    sortProperty = "title";
+                    ViewData["SortIconTitle"] = "bi bi-file-arrow-down-fill";
+                    ViewData["SortParamTitle"] = "title_desc";
+                    break;
+            }
+
+            return View(await _serviceMovie.GetAllMoviesAsync(sortProperty, sortOrder));
         }
 
         public async Task<IActionResult> ListActors()

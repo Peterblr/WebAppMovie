@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppMovie.Data;
+using WebAppMovie.Data.Enums;
 using WebAppMovie.Data.ViewModels;
 using WebAppMovie.Models;
 using WebAppMovie.Repository.Base;
@@ -18,6 +19,36 @@ namespace WebAppMovie.Repository.Implementations
         public MoviesService(ApplicationDbContext context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task<List<Movie>> GetAllMoviesAsync(string sortProperty, SortOrder sortOrder)
+        {
+            var movies = await _context.Movies.ToListAsync();
+
+            if (sortProperty.ToLower() == "title")
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+                    movies = movies.OrderBy(a => a.Title).ToList();
+                }
+                else
+                {
+                    movies = movies.OrderByDescending(a => a.Title).ToList();
+                }
+            }
+            else
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+                    movies = movies.OrderBy(a => a.Description.Count()).ToList();
+                }
+                else
+                {
+                    movies = movies.OrderByDescending(a => a.Description.Count()).ToList();
+                }
+            }
+
+            return movies;
         }
 
         public async Task<Movie> GetMovieByIdAsync(int id)

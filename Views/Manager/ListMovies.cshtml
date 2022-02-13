@@ -43,12 +43,10 @@
         <tr>
             <th></th>
             <th>
-                @*<i class="@ViewData["SortIconFullName"]" aria-hidden="true"></i>*@
-                @*<a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamFullName"]">*@
-
                 @*<i class="@sortModel.GetColumn("title").SortIcon" aria-hidden="true"></i>*@
                 @*<a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("title").SortExpression">*@
-                <a>
+                <i class="@ViewData["SortIconTitle"]" aria-hidden="true"></i>
+                <a asp-controller="Manager" asp-action="ListMovies" asp-route-sortExpression="@ViewData["SortParamTitle"]">
                     @Html.DisplayNameFor(model => model.Title)
                 </a>
             </th>
@@ -75,12 +73,10 @@
             </th>
 
             <th>
-                @*<i class="@ViewData["SortIconBio"]" aria-hidden="true"></i>*@
-                @*<a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamBio"]">*@
-
                 @*<i class="@sortModel.GetColumn("description").SortIcon" aria-hidden="true"></i>*@
                 @*<a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("description").SortExpression">*@
-                <a>
+                <i class="@ViewData["SortIconDesc"]" aria-hidden="true"></i>
+                <a asp-controller="Manager" asp-action="ListMovies" asp-route-sortExpression="@ViewData["SortParamDesc"]">
                     @Html.DisplayNameFor(model => model.Description)
                 </a>
             </th>
