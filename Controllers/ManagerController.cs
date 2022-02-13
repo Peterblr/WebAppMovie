@@ -28,54 +28,17 @@ namespace WebAppMovie.Controllers
             _serviceProducer = serviceProducer;
         }
 
-        private SortModel ApplySort(string sortExpression)
-        {
-            ViewData["SortParamTitle"] = "title";
-            ViewData["SortParamDesc"] = "description";
 
-            ViewData["SortIconTitle"] = "";
-            ViewData["SortIconDesc"] = "";
-
-            SortModel sortModel = new SortModel();
-
-            switch (sortExpression.ToLower())
-            {
-                case "title_desc":
-                    sortModel.SortedOrder = SortOrder.Descending;
-                    sortModel.SortedProperty = "title";
-                    ViewData["SortIconTitle"] = "bi bi-file-arrow-up-fill";
-                    ViewData["SortParamTitle"] = "title";
-                    break;
-
-                case "description":
-                    sortModel.SortedOrder = SortOrder.Ascending;
-                    sortModel.SortedProperty = "description";
-                    ViewData["SortIconDesc"] = "bi bi-file-arrow-down-fill";
-                    ViewData["SortParamDesc"] = "description_desc";
-                    break;
-
-                case "description_desc":
-                    sortModel.SortedOrder = SortOrder.Descending;
-                    sortModel.SortedProperty = "description";
-                    ViewData["SortIconDesc"] = "bi bi-file-arrow-up-fill";
-                    ViewData["SortParamDesc"] = "description";
-                    break;
-
-                default:
-                    sortModel.SortedOrder = SortOrder.Ascending;
-                    sortModel.SortedProperty = "title";
-                    ViewData["SortIconTitle"] = "bi bi-file-arrow-down-fill";
-                    ViewData["SortParamTitle"] = "title_desc";
-                    break;
-            }
-
-            return sortModel;
-        }
-
-        // GET: Manager
+        //GET: Manager
         public async Task<IActionResult> ListMovies(string sortExpression = "")
         {
-            SortModel sortModel = ApplySort(sortExpression);
+            //SortModel sortModel = ApplySort(sortExpression);
+            SortModel sortModel = new SortModel();
+
+            sortModel.AddColumn("title");
+            sortModel.AddColumn("description");
+            sortModel.ApplySort(sortExpression);
+            ViewData["sortModel"] = sortModel;
 
             return View(await _serviceMovie.GetAllMoviesAsync(sortModel.SortedProperty, sortModel.SortedOrder));
         }

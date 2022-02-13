@@ -1,18 +1,16 @@
-﻿@model IEnumerable<WebAppMovie.Models.Movie>
+﻿@using WebAppMovie.Data.ViewModels
+
+@model IEnumerable<WebAppMovie.Models.Movie>
 
 @{
     ViewData["Title"] = "List Movies";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    SortModel sortModel = (SortModel)ViewData["sortModel"];
 
 }
 
 @*@{
-        ViewData["Title"] = "Index";
-
-
         //Pager pager = ViewBag.Pager;
-
-        //SortModel sortModel = (SortModel)ViewData["sortModel"];
     }*@
 
 <br />
@@ -43,10 +41,11 @@
         <tr>
             <th></th>
             <th>
-                @*<i class="@sortModel.GetColumn("title").SortIcon" aria-hidden="true"></i>*@
-                @*<a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("title").SortExpression">*@
-                <i class="@ViewData["SortIconTitle"]" aria-hidden="true"></i>
-                <a asp-controller="Manager" asp-action="ListMovies" asp-route-sortExpression="@ViewData["SortParamTitle"]">
+                @*<i class="@ViewData["SortIconTitle"]" aria-hidden="true"></i>*@
+                @*<a asp-controller="Manager" asp-action="ListMovies" asp-route-sortExpression="@ViewData["SortParamTitle"]">*@
+
+                <i class="@sortModel.GetColumn("title").SortIcon" aria-hidden="true"></i>
+                <a asp-controller="Manager" asp-action="ListMovies" asp-route-sortExpression="@sortModel.GetColumn("title").SortExpression">
                     @Html.DisplayNameFor(model => model.Title)
                 </a>
             </th>
@@ -73,10 +72,11 @@
             </th>
 
             <th>
-                @*<i class="@sortModel.GetColumn("description").SortIcon" aria-hidden="true"></i>*@
-                @*<a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("description").SortExpression">*@
-                <i class="@ViewData["SortIconDesc"]" aria-hidden="true"></i>
-                <a asp-controller="Manager" asp-action="ListMovies" asp-route-sortExpression="@ViewData["SortParamDesc"]">
+                @*<i class="@ViewData["SortIconDesc"]" aria-hidden="true"></i>
+                    <a asp-controller="Manager" asp-action="ListMovies" asp-route-sortExpression="@ViewData["SortParamDesc"]">*@
+
+                <i class="@sortModel.GetColumn("description").SortIcon" aria-hidden="true"></i>
+                <a asp-controller="Manager" asp-action="ListMovies" asp-route-sortExpression="@sortModel.GetColumn("description").SortExpression">
                     @Html.DisplayNameFor(model => model.Description)
                 </a>
             </th>
