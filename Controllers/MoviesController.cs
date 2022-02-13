@@ -150,7 +150,7 @@ namespace WebAppMovie.Controllers
             {
                 await _service.UpdateAsync(movie);
 
-                _toastNotification.AddSuccessToastMessage("Movie created");
+                _toastNotification.AddSuccessToastMessage("Movie Updated");
 
                 return RedirectToAction(nameof(Index));
             }
@@ -179,7 +179,7 @@ namespace WebAppMovie.Controllers
 
             await _service.DeleteAsync(id);
 
-            _toastNotification.AddAlertToastMessage("Movie deleted");
+            _toastNotification.AddAlertToastMessage("Movie Deleted");
 
             return RedirectToAction(nameof(Index));
         }

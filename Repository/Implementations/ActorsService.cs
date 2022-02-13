@@ -33,18 +33,6 @@ namespace WebAppMovie.Repository.Implementations
                 }
             }
             else
-            if (sortProperty.ToLower() == "dayofbirth")
-            {
-                if (sortOrder == SortOrder.Ascending)
-                {
-                    movies = movies.OrderBy(a => a.DayOfBirth).ToList();
-                }
-                else
-                {
-                    movies = movies.OrderByDescending(a => a.DayOfBirth).ToList();
-                }
-            }
-            else
             {
                 if (sortOrder == SortOrder.Ascending)
                 {
@@ -59,7 +47,7 @@ namespace WebAppMovie.Repository.Implementations
             return movies;
         }
 
-        public PaginatedList<Actor> GetAllActors(string sortProperty
+        public Task<PaginatedList<Actor>> GetAllActorsAsync(string sortProperty
             , SortOrder sortOrder
             , string searchText = ""
             , int pageIndex = 1
@@ -81,7 +69,7 @@ namespace WebAppMovie.Repository.Implementations
 
             PaginatedList<Actor> retActor = new(actors, pageIndex, pageSize);
 
-            return retActor;
+            return Task.FromResult(retActor);
         }
     }
 }

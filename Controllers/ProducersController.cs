@@ -55,7 +55,7 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProducerId,FirstName,LastName,DayOfBirth,ImageUrl,Biografy")] Producer producer)
+        public async Task<IActionResult> Create([Bind("ProducerId,FullName,DayOfBirth,ImageUrl,Biografy")] Producer producer)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace WebAppMovie.Controllers
 
                 //await _service.SaveAsync();
 
-                _toastNotification.AddSuccessToastMessage("Actor created");
+                _toastNotification.AddSuccessToastMessage("Producer Created");
 
                 return RedirectToAction(nameof(Index));
             }
@@ -87,7 +87,7 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProducerId,FirstName,LastName,DayOfBirth,ImageUrl,Biografy")] Producer producer)
+        public async Task<IActionResult> Edit(int id, [Bind("ProducerId,FullName,DayOfBirth,ImageUrl,Biografy")] Producer producer)
         {
             if (id != producer.ProducerId)
             {
@@ -100,7 +100,7 @@ namespace WebAppMovie.Controllers
 
                 //await _service.SaveAsync();
 
-                _toastNotification.AddSuccessToastMessage("Actor created");
+                _toastNotification.AddSuccessToastMessage("Producer Updated");
 
                 return RedirectToAction(nameof(Index));
             }
@@ -131,7 +131,7 @@ namespace WebAppMovie.Controllers
 
             //await _service.SaveAsync();
 
-            _toastNotification.AddAlertToastMessage("Actor deleted");
+            _toastNotification.AddAlertToastMessage("Producer Deleted");
 
             return RedirectToAction(nameof(Index));
         }

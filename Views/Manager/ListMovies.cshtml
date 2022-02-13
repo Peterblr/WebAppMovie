@@ -16,7 +16,7 @@
 <partial name="_pagerbar" model="@pager" />
 
 <div style="position: fixed; top: 100px; left: 50px" class="text-white">
-    <a asp-controller="Manager" asp-action="CreateMovie" class="btn btn-primary">
+    <a asp-controller="Movies" asp-action="Create" class="btn btn-primary">
         <i class="bi bi-plus-circle"></i> Create Movie
     </a>
 </div>
@@ -34,20 +34,10 @@
                 </a>
             </th>
             <th>
-                <i class="@sortModel.GetColumn("actor").SortIcon" aria-hidden="true"></i>
-                <a asp-controller="Manager"
-                   asp-action="ListMovies"
-                   asp-route-sortExpression="@sortModel.GetColumn("actor").SortExpression">
-                    @Html.DisplayNameFor(model => model.Actors)
-                </a>
+                @Html.DisplayNameFor(model => model.Actors)
             </th>
             <th>
-                <i class="@sortModel.GetColumn("producer").SortIcon" aria-hidden="true"></i>
-                <a asp-controller="Manager"
-                   asp-action="ListMovies"
-                   asp-route-sortExpression="@sortModel.GetColumn("producer").SortExpression">
-                    @Html.DisplayNameFor(model => model.Producers)
-                </a>
+                @Html.DisplayNameFor(model => model.Producers)
             </th>
             <th>
                 <i class="@sortModel.GetColumn("description").SortIcon" aria-hidden="true"></i>

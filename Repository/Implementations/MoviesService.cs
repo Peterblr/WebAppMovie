@@ -35,30 +35,6 @@ namespace WebAppMovie.Repository.Implementations
                 }
             }
             else
-            if (sortProperty.ToLower() == "actor")
-            {
-                if (sortOrder == SortOrder.Ascending)
-                {
-                    movies = movies.OrderBy(a => a.Actors).ToList();
-                }
-                else
-                {
-                    movies = movies.OrderByDescending(a => a.Actors).ToList();
-                }
-            }
-            else
-            if (sortProperty.ToLower() == "producer")
-            {
-                if (sortOrder == SortOrder.Ascending)
-                {
-                    movies = movies.OrderBy(a => a.Producers).ToList();
-                }
-                else
-                {
-                    movies = movies.OrderByDescending(a => a.Producers).ToList();
-                }
-            }
-            else
             {
                 if (sortOrder == SortOrder.Ascending)
                 {

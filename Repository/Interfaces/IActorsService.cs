@@ -11,7 +11,7 @@ namespace WebAppMovie.Repository.Interfaces
 {
     public interface IActorsService : IBaseRepository<Actor>
     {
-        PaginatedList<Actor> GetAllActors(string sortProperty
+        Task<PaginatedList<Actor>> GetAllActorsAsync(string sortProperty
             , SortOrder sortOrder
             , string searchText = ""
             , int pageIndex = 1
