@@ -21,10 +21,8 @@ namespace WebAppMovie.Repository.Implementations
             _context = context;
         }
 
-        public async Task<List<Movie>> GetAllMoviesAsync(string sortProperty, SortOrder sortOrder)
+        private List<Movie> DoSort(List<Movie> movies, string sortProperty, SortOrder sortOrder)
         {
-            var movies = await _context.Movies.ToListAsync();
-
             if (sortProperty.ToLower() == "title")
             {
                 if (sortOrder == SortOrder.Ascending)
@@ -37,18 +35,69 @@ namespace WebAppMovie.Repository.Implementations
                 }
             }
             else
+            if (sortProperty.ToLower() == "actor")
             {
                 if (sortOrder == SortOrder.Ascending)
                 {
-                    movies = movies.OrderBy(a => a.Description.Count()).ToList();
+                    movies = movies.OrderBy(a => a.Actors).ToList();
                 }
                 else
                 {
-                    movies = movies.OrderByDescending(a => a.Description.Count()).ToList();
+                    movies = movies.OrderByDescending(a => a.Actors).ToList();
+                }
+            }
+            else
+            if (sortProperty.ToLower() == "producer")
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+                    movies = movies.OrderBy(a => a.Producers).ToList();
+                }
+                else
+                {
+                    movies = movies.OrderByDescending(a => a.Producers).ToList();
+                }
+            }
+            else
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+                    movies = movies.OrderBy(a => a.Description.Length).ToList();
+                }
+                else
+                {
+                    movies = movies.OrderByDescending(a => a.Description.Length).ToList();
                 }
             }
 
             return movies;
+        }
+
+        public async Task<PaginatedList<Movie>> GetAllMoviesAsync(string sortProperty
+            , SortOrder sortOrder
+            , string searchText = ""
+            , int pageIndex = 1
+            , int pageSize = 3)
+        {
+            List<Movie> movies = await _context.Movies.ToListAsync();
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                movies = _context.Movies.Where(n => n.Title.Contains(searchText) || n.Description.Contains(searchText))
+                    .Include(a => a.Actors)
+                    .Include(p => p.Producers)
+                    .ToList();
+            }
+            else
+            {
+                movies = _context.Movies.Include(n => n.Actors).ToList();
+            }
+
+            movies = DoSort(movies, sortProperty, sortOrder);
+
+            PaginatedList<Movie> retMovie = new(movies, pageIndex, pageSize);
+
+            return retMovie;
         }
 
         public async Task<Movie> GetMovieByIdAsync(int id)

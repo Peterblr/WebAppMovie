@@ -30,17 +30,30 @@ namespace WebAppMovie.Controllers
 
 
         //GET: Manager
-        public async Task<IActionResult> ListMovies(string sortExpression = "")
+        public async Task<IActionResult> ListMovies(string sortExpression = "", string searchText = "", int pg = 1, int pageSize = 3)
         {
-            //SortModel sortModel = ApplySort(sortExpression);
-            SortModel sortModel = new SortModel();
+            PaginatedList<Movie> movies;
+            SortModel sortModel = new();
 
             sortModel.AddColumn("title");
             sortModel.AddColumn("description");
+            sortModel.AddColumn("actor");
+            sortModel.AddColumn("producer");
             sortModel.ApplySort(sortExpression);
             ViewData["sortModel"] = sortModel;
 
-            return View(await _serviceMovie.GetAllMoviesAsync(sortModel.SortedProperty, sortModel.SortedOrder));
+            ViewBag.searchText = searchText;
+
+            movies = await _serviceMovie.GetAllMoviesAsync(sortModel.SortedProperty, sortModel.SortedOrder, searchText, pg, pageSize);
+
+            var pager = new Pager(movies.TotalRecords, pg, pageSize)
+            {
+                SortExpression = sortExpression
+            };
+
+            ViewBag.Pager = pager;
+
+            return View(movies);
         }
 
         public async Task<IActionResult> ListActors()

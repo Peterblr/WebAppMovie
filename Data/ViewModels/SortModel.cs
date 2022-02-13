@@ -8,15 +8,15 @@ namespace WebAppMovie.Data.ViewModels
 {
     public class SortModel
     {
-        private string UpIcon = "bi bi-file-arrow-up-fill";
-        private string DownIcon = "bi bi-file-arrow-down-fill";
+        private readonly string UpIcon = "bi bi-file-arrow-up-fill";
+        private readonly string DownIcon = "bi bi-file-arrow-down-fill";
 
 
         public string SortedProperty { get; set; }
 
         public SortOrder SortedOrder { get; set; }
 
-        private List<SortableColumn> sortableColumns = new List<SortableColumn>();
+        private readonly List<SortableColumn> sortableColumns = new();
 
 
         public void AddColumn(string colName, bool isDefaultColumn = false)

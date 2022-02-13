@@ -14,9 +14,10 @@ namespace WebAppMovie.Repository.Interfaces
         Task<Movie> GetMovieByIdAsync(int id);
         Task<NewMovieDropdown> GetMovieDropdownsValues();
 
-        Task<List<Movie>> GetAllMoviesAsync(string sortProperty, SortOrder sortOrder);
-
-
-        //Task AddNewMovieAsync(Movie data);
+        Task<PaginatedList<Movie>> GetAllMoviesAsync(string sortProperty
+            , SortOrder sortOrder
+            , string searchText = ""
+            , int pageIndex = 1
+            , int pageSize = 3);
     }
 }
