@@ -17,14 +17,14 @@ namespace WebAppMovie.Controllers
     [Authorize(Roles = "admin, manager")]
     public class MoviesController : Controller
     {
-        private readonly IMoviesService _service;
+        private readonly IMoviesRepository _service;
 
-        private readonly IProducerService _producer;
+        private readonly IProducerRepository _producer;
 
         private readonly IToastNotification _toastNotification;
 
 
-        public MoviesController(IMoviesService service, IToastNotification toastNotification, IProducerService producer)
+        public MoviesController(IMoviesRepository service, IToastNotification toastNotification, IProducerRepository producer)
         {
             _service = service;
 
@@ -104,7 +104,7 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Ratin,ActorId,ProducerId")] Movie movie)
+        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Ratin,Actors,Producers")] Movie movie)
         {
             if (ModelState.IsValid)
             {

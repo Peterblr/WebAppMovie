@@ -16,11 +16,11 @@ namespace WebAppMovie.Controllers
     [Authorize(Roles = "admin, manager")]
     public class ActorsController : Controller
     {
-        private readonly IActorsService _service;
+        private readonly IActorsRepository _service;
 
         private readonly IToastNotification _toastNotification;
 
-        public ActorsController(IActorsService service, IToastNotification toastNotification)
+        public ActorsController(IActorsRepository service, IToastNotification toastNotification)
         {
             _service = service;
 

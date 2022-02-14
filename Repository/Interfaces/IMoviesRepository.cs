@@ -9,9 +9,12 @@ using WebAppMovie.Repository.Base;
 
 namespace WebAppMovie.Repository.Interfaces
 {
-    public interface IActorsService : IBaseRepository<Actor>
+    public interface IMoviesRepository : IBaseRepository<Movie>
     {
-        Task<PaginatedList<Actor>> GetAllActorsAsync(string sortProperty
+        Task<Movie> GetMovieByIdAsync(int id);
+        Task<NewMovieDropdown> GetMovieDropdownsValues();
+
+        Task<PaginatedList<Movie>> GetAllMoviesAsync(string sortProperty
             , SortOrder sortOrder
             , string searchText = ""
             , int pageIndex = 1

@@ -11,7 +11,7 @@ using WebAppMovie.Repository.Interfaces;
 
 namespace WebAppMovie.Repository.Implementations
 {
-    public class ActorsService : BaseRepository<Actor>, IActorsService
+    public class ActorsService : BaseRepository<Actor>, IActorsRepository
     {
         private readonly ApplicationDbContext _context;
         public ActorsService(ApplicationDbContext context) : base(context)

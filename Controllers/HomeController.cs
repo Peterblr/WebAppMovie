@@ -13,9 +13,9 @@ namespace WebAppMovie.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IMoviesService _service;
+        private readonly IMoviesRepository _service;
 
-        public HomeController(IMoviesService service)
+        public HomeController(IMoviesRepository service)
         {
             _service = service;
         }

@@ -17,11 +17,11 @@ namespace WebAppMovie.Controllers
 
     public class ProducersController : Controller
     {
-        private readonly IProducerService _service;
+        private readonly IProducerRepository _service;
 
         private readonly IToastNotification _toastNotification;
 
-        public ProducersController(IProducerService service, IToastNotification toastNotification)
+        public ProducersController(IProducerRepository service, IToastNotification toastNotification)
         {
             _service = service;
 

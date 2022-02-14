@@ -17,11 +17,11 @@ namespace WebAppMovie.Controllers
     [Authorize(Roles = "admin, manager")]
     public class ManagerController : Controller
     {
-        private readonly IMoviesService _serviceMovie;
-        private readonly IActorsService _serviceActor;
-        private readonly IProducerService _serviceProducer;
+        private readonly IMoviesRepository _serviceMovie;
+        private readonly IActorsRepository _serviceActor;
+        private readonly IProducerRepository _serviceProducer;
 
-        public ManagerController(IMoviesService serviceMovie, IActorsService serviceActor, IProducerService serviceProducer)
+        public ManagerController(IMoviesRepository serviceMovie, IActorsRepository serviceActor, IProducerRepository serviceProducer)
         {
             _serviceMovie = serviceMovie;
             _serviceActor = serviceActor;

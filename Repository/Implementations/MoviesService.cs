@@ -12,7 +12,7 @@ using WebAppMovie.Repository.Interfaces;
 
 namespace WebAppMovie.Repository.Implementations
 {
-    public class MoviesService : BaseRepository<Movie>, IMoviesService
+    public class MoviesService : BaseRepository<Movie>, IMoviesRepository
     {
         private readonly ApplicationDbContext _context;
 
