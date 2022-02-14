@@ -19,11 +19,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
-                </a>
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th></th>
         </tr>
@@ -33,12 +32,12 @@
         <tbody>
             <tr>
                 <td>
-                    <h2>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </h2>
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    <h2 class="text-primary">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </h2>
                 </td>
                 <td>
                     <div class="card-footer">
@@ -63,76 +62,11 @@
                             </span>
                         </form>
                     </div>
-                    @*<a class="btn btn-info"
-                           asp-controller="Movies"
-                           asp-action="Details"
-                           asp-route-id="@item.MovieId">
-                            <i class="bi bi-eye"></i>Details
-                        </a>
-                        <a class="btn btn-danger text-white"
-                           asp-controller="Movies"
-                           asp-action="Delete"
-                           asp-route-id="@item.MovieId">
-                            <i class="bi bi-trash"></i>Delete
-                        </a>*@
                 </td>
             </tr>
         </tbody>
     }
 </table>
-
-@*<div class="row">
-        <div class="col-md-8">
-            @if (Model.Any())
-            {
-                foreach (var role in Model)
-                {
-                    <div class="card mb-3">
-                        <div class=" card-header">
-                            <h3 class="card-title text-center">@role.Name</h3>
-                        </div>
-                        <div class="card-body">
-                            Role Id : @role.Id
-                        </div>
-                        <div class="card-footer">
-                            <form asp-action="DeleteRole" asp-route-id="@role.Id" method="post">
-                                <a class="btn btn-primary" asp-action="EditRole" asp-controller="Admin" asp-route-id="@role.Id">Edit</a>
-                                <span id="confirmDeleteSpan_@role.Id" style="display:none">
-                                    <span>Are you sure you want to delete?</span>
-                                    <button type="submit" class="btn btn-danger">Yes</button>
-                                    <a href="#" class="btn btn-primary"
-                                       onclick="confirmDelete('@role.Id', false)">No</a>
-                                </span>
-                                <span id="deleteSpan_@role.Id">
-                                    <a href="#" class="btn btn-danger"
-                                       onclick="confirmDelete('@role.Id', true)">Delete</a>
-                                </span>
-                            </form>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <div class="card">
-                    <div class="card-header">
-                        No roles created yet
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Use the button below to create a role
-                        </h5>
-                        <a class="btn btn-primary" style="width:auto"
-                           asp-controller="Admin" asp-action="CreateRole">
-                            Create Role
-                        </a>
-                    </div>
-                </div>
-            }
-
-        </div>
-    </div>*@
-
 
 @section Scripts {
     <script src="~/js/CustomScript.js"></script>
