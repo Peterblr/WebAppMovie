@@ -15,7 +15,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CommentItem)
+                @Html.DisplayNameFor(model => model.CommentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Movie)
@@ -28,7 +31,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CommentItem)
+                    @Html.DisplayFor(modelItem => item.CommentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Movie.Title)

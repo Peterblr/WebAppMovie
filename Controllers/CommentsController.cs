@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,12 @@ namespace WebAppMovie.Controllers
     public class CommentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public CommentsController(ApplicationDbContext context)
+        public CommentsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Comments
@@ -29,6 +32,10 @@ namespace WebAppMovie.Controllers
         // GET: Comments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var userName = User.Identity.Name;
+
+            ViewBag.UserName = userName;
+
             if (id == null)
             {
                 return NotFound();
@@ -48,6 +55,11 @@ namespace WebAppMovie.Controllers
         // GET: Comments/Create
         public IActionResult Create()
         {
+            var userName = User.Identity.Name;
+
+            ViewBag.UserName = userName;
+
+
             ViewData["MovieId"] = new SelectList(_context.Movies, "MovieId", "Title");
             return View();
         }
@@ -57,8 +69,9 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CommentId,CommentItem,MovieId")] Comment comment)
+        public async Task<IActionResult> Create([Bind("CommentId,CommentItem,MovieId,UserId")] Comment comment)
         {
+            comment.UserId = User.Identity.Name;
             if (ModelState.IsValid)
             {
                 _context.Add(comment);
