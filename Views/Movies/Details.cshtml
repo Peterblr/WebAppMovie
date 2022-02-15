@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <img src="@Model.ImageUrl" width="100%" alt="@Model.Title">
+                    <img src="@Model.ImageUrl" style=" width: 100%" alt="@Model.Title">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -76,6 +76,25 @@
                     </div>
                 </div>
 
+
+                <form asp-controller="Comments" asp-action="Create">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h3>leave a comment</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <textarea class="form-control" style="width: 400px"></textarea>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
                 <div class="card">
                     <div class="card-header">
                         <h3>Comments</h3>
@@ -85,7 +104,14 @@
                         {
                             foreach (var comment in Model.Comments)
                             {
-                                <p class="card-text">@comment.CommentItem</p>
+                                <div class="card-footer">
+
+                                    <p>CommentId: @comment.CommentId</p>
+                                </div>
+                                <div class="card">
+                                    <p class="card-text">@comment.CommentItem</p>
+                                    <br />
+                                </div>
                                 <a asp-controller="Comments" asp-action="Details" asp-route-id="@comment.CommentId">Edit</a>
                             }
                         }
@@ -94,12 +120,13 @@
                             <h5 class="card-title">None at the moment</h5>
                         }
                     </div>
-                    <div>
-
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 

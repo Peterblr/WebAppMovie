@@ -88,6 +88,7 @@ namespace WebAppMovie.Controllers
             return View(movie);
         }
 
+
         // GET: Movies/Create
         public async Task<IActionResult> Create()
         {
@@ -111,7 +112,7 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Ratin,ActorId,ProducerId")] Movie movie)
+        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Ratin,ActorId,ProducerId,Comments")] Movie movie)
         {
             if (ModelState.IsValid)
             {

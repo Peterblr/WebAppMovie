@@ -68,6 +68,31 @@
                         </p>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Comments</h3>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.Comments.Any())
+                        {
+                            foreach (var comment in Model.Comments)
+                            {
+                                <div class="card-footer">
+                                    <p>CommentId: @comment.CommentId</p>
+                                </div>
+                                <div class="card">
+                                    <p class="card-text">@comment.CommentItem</p>
+                                    <br />
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <h5 class="card-title">None at the moment</h5>
+                        }
+                    </div>
+                </div>
+                <a class="btn btn-outline-primary float-right" asp-action="Index">Back to List</a>
             </div>
         </div>
     </div>
