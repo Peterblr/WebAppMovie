@@ -61,29 +61,39 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Actors)
+                    @foreach (var actor in item.Actors)
+                    {
+                        <div class="row">
+                            <a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.ActorId">@actor.FullName</a>
+                        </div>
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Producers)
+                    @foreach (var producer in item.Producers)
+                    {
+                        <div class="row">
+                            <a asp-controller="Producers" asp-action="Details" asp-route-id="@producer.ProducerId">@producer.FullName</a>
+                        </div>
+                    }
                 </td>
                 <td style="max-width: 300px">
                     ----///----
                     @*@Html.DisplayFor(modelItem => item.Description)*@
                 </td>
                 <td>
-                    <a class="btn btn-primary"
+                    <a class="btn btn-outline-primary"
                        asp-controller="Movies"
                        asp-action="Edit"
                        asp-route-id="@item.MovieId">
                         <i class="bi bi-pencil-square"></i>Edit
                     </a>
-                    <a class="btn btn-info"
+                    <a class="btn btn-outline-info"
                        asp-controller="Movies"
                        asp-action="Details"
                        asp-route-id="@item.MovieId">
                         <i class="bi bi-eye"></i>Details
                     </a>
-                    <a class="btn btn-danger text-white"
+                    <a class="btn btn-outline-danger"
                        asp-controller="Movies"
                        asp-action="Delete"
                        asp-route-id="@item.MovieId">

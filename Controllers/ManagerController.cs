@@ -29,14 +29,14 @@ namespace WebAppMovie.Controllers
         }
 
 
-        private async Task<SelectList> GetActors()
-        {
-            PaginatedList<Actor> actors = await _serviceActor.GetAllActorsAsync("FullName", SortOrder.Ascending, "", 1, 100);
+        //private async Task<SelectList> GetActors()
+        //{
+        //    PaginatedList<Actor> actors = await _serviceActor.GetAllActorsAsync("FullName", SortOrder.Ascending, "", 1, 100);
 
-            var listActors = new SelectList(actors, "ActorId", "FullName");
+        //    var listActors = new SelectList(actors, "ActorId", "FullName");
 
-            return listActors;
-        }
+        //    return listActors;
+        //}
 
         //GET: Manager
         public async Task<IActionResult> ListMovies(string sortExpression = "", string searchText = "", int pg = 1, int pageSize = 3)
@@ -63,27 +63,32 @@ namespace WebAppMovie.Controllers
             return View(movies);
         }
 
-        public async Task<IActionResult> ListActors(string sortExpression = "", string searchText = "", int pg = 1, int pageSize = 3)
+        //public async Task<IActionResult> ListActors(string sortExpression = "", string searchText = "", int pg = 1, int pageSize = 3)
+        //{
+        //    PaginatedList<Actor> actors;
+        //    SortModel sortModel = new();
+
+        //    sortModel.AddColumn("fullname");
+        //    sortModel.ApplySort(sortExpression);
+        //    ViewData["sortModel"] = sortModel;
+
+        //    ViewBag.searchText = searchText;
+
+        //    actors = await _serviceActor.GetAllActorsAsync(sortModel.SortedProperty, sortModel.SortedOrder, searchText, pg, pageSize);
+
+        //    var pager = new Pager(actors.TotalRecords, pg, pageSize)
+        //    {
+        //        SortExpression = sortExpression
+        //    };
+
+        //    ViewBag.Pager = pager;
+
+        //    return View(actors);
+        //}
+
+        public async Task<IActionResult> ListActors()
         {
-            PaginatedList<Actor> actors;
-            SortModel sortModel = new();
-
-            sortModel.AddColumn("fullname");
-            sortModel.ApplySort(sortExpression);
-            ViewData["sortModel"] = sortModel;
-
-            ViewBag.searchText = searchText;
-
-            actors = await _serviceActor.GetAllActorsAsync(sortModel.SortedProperty, sortModel.SortedOrder, searchText, pg, pageSize);
-
-            var pager = new Pager(actors.TotalRecords, pg, pageSize)
-            {
-                SortExpression = sortExpression
-            };
-
-            ViewBag.Pager = pager;
-
-            return View(actors);
+            return View(await _serviceActor.GetAllAsync());
         }
 
         public async Task<IActionResult> ListProducers()
@@ -95,8 +100,6 @@ namespace WebAppMovie.Controllers
         public IActionResult CreateMovie()
         {
             Movie movie = new();
-
-            ViewBag.Actors = GetActors();
 
             return View(movie);
         }

@@ -6,8 +6,7 @@
 @{
     ViewData["Title"] = "List Actors";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Pager pager = ViewBag.Pager;
-    SortModel sortModel = (SortModel)ViewData["sortModel"];
+
 }
 
 @*@{
@@ -23,7 +22,7 @@
 <h1 class="mt-5 text-center">List Actors</h1>
 <br />
 
-<partial name="_pagerbar" model="@pager" />
+@*<partial name="_pagerbar" model="@pager" />*@
 
 <div style="position: fixed; top: 100px; left: 50px" class="text-white">
     <a asp-controller="Actors" asp-action="Create" class="btn btn-primary">
@@ -36,19 +35,14 @@
         <tr>
             <th></th>
             <th>
-                @*<i class="@ViewData["SortIconFullName"]" aria-hidden="true"></i>*@
-                @*<a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamFullName"]">*@
-
-                <i class="@sortModel.GetColumn("fullname").SortIcon" aria-hidden="true"></i>
-                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("fullname").SortExpression">
+                @*<i class="@sortModel.GetColumn("fullname").SortIcon" aria-hidden="true"></i>
+                    <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("fullname").SortExpression">*@
+                <a>
                     @Html.DisplayNameFor(model => model.FullName)
                 </a>
             </th>
 
             <th>
-                @*<i class="@ViewData["SortIconBio"]" aria-hidden="true"></i>*@
-                @*<a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamBio"]">*@
-
                 @*<i class="@sortModel.GetColumn("actor").SortIcon" aria-hidden="true"></i>*@
                 @*<a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("actor").SortExpression">*@
                 <a>
@@ -56,9 +50,6 @@
                 </a>
             </th>
             <th>
-                @*<i class="@ViewData["SortIconBio"]" aria-hidden="true"></i>*@
-                @*<a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamBio"]">*@
-
                 @*<i class="@sortModel.GetColumn("actor").SortIcon" aria-hidden="true"></i>*@
                 @*<a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("actor").SortExpression">*@
                 <a>
