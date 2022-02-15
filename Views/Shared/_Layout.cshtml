@@ -14,10 +14,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    @*<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Acme&display=swap" type="text/css">*@
 
 </head>
-@*<body style="background-color: darkgray;">*@
 <body>
     <header>
         <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
@@ -49,6 +47,7 @@
                                     <a class="dropdown-item" asp-controller="Manager" asp-action="ListMovies"><i class="bi bi-film"></i> Movies</a>
                                     <a class="dropdown-item" asp-controller="Manager" asp-action="ListProducers"><i class="bi bi-headset"></i> Producers</a>
                                     <a class="dropdown-item" asp-controller="Manager" asp-action="ListActors"><i class="bi bi-people-fill"></i> Actors</a>
+                                    <a class="dropdown-item" asp-controller="Comments" asp-action="Index"><i class="bi bi-pencil-square"></i> Comments</a>
                                 </div>
                             </li>
                         </ul>
@@ -64,6 +63,8 @@
                                     <a class="dropdown-item" asp-controller="Manager" asp-action="ListMovies"><i class="bi bi-film"></i> Movies</a>
                                     <a class="dropdown-item" asp-controller="Manager" asp-action="ListProducers"><i class="bi bi-headset"></i> Producers</a>
                                     <a class="dropdown-item" asp-controller="Manager" asp-action="ListActors"><i class="bi bi-people-fill"></i> Actors</a>
+                                    <a class="dropdown-item" asp-controller="Comments" asp-action="Index"><i class="bi bi-pencil-square"></i> Comments</a>
+
                                 </div>
                             </li>
                         </ul>

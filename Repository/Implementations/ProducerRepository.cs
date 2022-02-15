@@ -9,9 +9,9 @@ using WebAppMovie.Repository.Interfaces;
 
 namespace WebAppMovie.Repository.Implementations
 {
-    public class ProducerService : BaseRepository<Producer>, IProducerRepository
+    public class ProducerRepository : BaseRepository<Producer>, IProducerRepository
     {
-        public ProducerService(ApplicationDbContext context) : base(context)
+        public ProducerRepository(ApplicationDbContext context) : base(context)
         {
 
         }

@@ -11,10 +11,10 @@ using WebAppMovie.Repository.Interfaces;
 
 namespace WebAppMovie.Repository.Implementations
 {
-    public class ActorsService : BaseRepository<Actor>, IActorsRepository
+    public class ActorsRepository : BaseRepository<Actor>, IActorsRepository
     {
         private readonly ApplicationDbContext _context;
-        public ActorsService(ApplicationDbContext context) : base(context)
+        public ActorsRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }

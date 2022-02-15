@@ -12,11 +12,11 @@ using WebAppMovie.Repository.Interfaces;
 
 namespace WebAppMovie.Repository.Implementations
 {
-    public class MoviesService : BaseRepository<Movie>, IMoviesRepository
+    public class MoviesRepository : BaseRepository<Movie>, IMoviesRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public MoviesService(ApplicationDbContext context) : base(context)
+        public MoviesRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
@@ -81,6 +81,7 @@ namespace WebAppMovie.Repository.Implementations
             var movieDetails = await _context.Movies
                 .Include(a => a.Actors)
                 .Include(p => p.Producers)
+                .Include(c => c.Comments)
                 .FirstOrDefaultAsync(n => n.MovieId == id);
 
             return movieDetails;

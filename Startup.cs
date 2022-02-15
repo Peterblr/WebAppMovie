@@ -48,11 +48,11 @@ namespace WebAppMovie
                 TimeOut = 1500
             });
 
-            services.AddScoped<IActorsRepository, ActorsService>();
+            services.AddScoped<IActorsRepository, ActorsRepository>();
 
-            services.AddScoped<IProducerRepository, ProducerService>();
+            services.AddScoped<IProducerRepository, ProducerRepository>();
 
-            services.AddScoped<IMoviesRepository, MoviesService>();
+            services.AddScoped<IMoviesRepository, MoviesRepository>();
 
             services.AddControllersWithViews();
         }
