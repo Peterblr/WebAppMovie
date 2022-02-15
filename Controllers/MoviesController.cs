@@ -93,8 +93,8 @@ namespace WebAppMovie.Controllers
         {
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
 
-            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "FullName");
-            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "FullName");
+            ViewBag.Producers = new MultiSelectList(movieDropdownsData.SelectedProducers, "ProducerId", "FullName");
+            ViewBag.Actors = new SelectList(movieDropdownsData.SelectedActors, "ActorId", "FullName");
 
             return View();
         }
@@ -104,7 +104,7 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Ratin,Actors,Producers")] Movie movie)
+        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Ratin,ActorsId,ProducersId")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -116,8 +116,8 @@ namespace WebAppMovie.Controllers
             }
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
 
-            ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "ProducerId", "FullName");
-            ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "ActorId", "FullName");
+            ViewBag.Producers = new MultiSelectList(movieDropdownsData.SelectedProducers, "ProducerId", "FullName");
+            ViewBag.Actors = new SelectList(movieDropdownsData.SelectedActors, "ActorId", "FullName");
 
             return View(movie);
         }

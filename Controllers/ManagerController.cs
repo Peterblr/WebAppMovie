@@ -94,7 +94,7 @@ namespace WebAppMovie.Controllers
         // GET: Manager/Create
         public IActionResult CreateMovie()
         {
-            Movie movie = new Movie();
+            Movie movie = new();
 
             ViewBag.Actors = GetActors();
 

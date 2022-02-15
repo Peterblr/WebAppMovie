@@ -11,11 +11,6 @@ namespace WebAppMovie.Models
     {
         public int ActorId { get; set; }
 
-        //[Required(ErrorMessage = "First Name is required")]
-        //[StringLength(50, MinimumLength = 3, ErrorMessage = "First name cannot be longer than 50 characters and less 3.")]
-        //[Column("FirstName")]
-        //public string FirstName { get; set; }
-
         [Required(ErrorMessage = "Full Name is required")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Last name cannot be longer than 50 characters and less 3.")]
         [Column("FullName")]

@@ -10,12 +10,12 @@ namespace WebAppMovie.Data.ViewModels
     {
         public NewMovieDropdown()
         {
-            Producers = new List<Producer>();
+            SelectedProducers = new List<Producer>();
 
-            Actors = new List<Actor>();
+            SelectedActors = new List<Actor>();
         }
 
-        public List<Producer> Producers { get; set; }
-        public List<Actor> Actors { get; set; }
+        public List<Producer> SelectedProducers { get; set; }
+        public List<Actor> SelectedActors { get; set; }
     }
 }

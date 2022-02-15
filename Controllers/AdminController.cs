@@ -54,7 +54,7 @@ namespace WebAppMovie.Data.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityRole identityRole = new IdentityRole
+                IdentityRole identityRole = new()
                 {
                     Name = model.RoleName
                 };
@@ -289,8 +289,7 @@ namespace WebAppMovie.Data.Controllers
             {
                 var user = await _userManager.FindByIdAsync(model[i].UserId);
 
-                IdentityResult result = null;
-
+                IdentityResult result;
                 if (model[i].IsSelected && !(await _userManager.IsInRoleAsync(user, role.Name)))
                 {
                     result = await _userManager.AddToRoleAsync(user, role.Name);

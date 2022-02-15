@@ -19,7 +19,7 @@ namespace WebAppMovie.Repository.Implementations
             _context = context;
         }
 
-        private List<Actor> DoSort(List<Actor> movies, string sortProperty, SortOrder sortOrder)
+        private static List<Actor> DoSort(List<Actor> movies, string sortProperty, SortOrder sortOrder)
         {
             if (sortProperty.ToLower() == "fullname")
             {

@@ -18,7 +18,7 @@ namespace WebAppMovie.Models
         [Required(ErrorMessage = "Image is required")]
         public string ImageUrl { get; set; }
 
-        [StringLength(500, MinimumLength = 3, ErrorMessage = "Descriptipn cannot be longer than 500 characters and less 3.")]
+        [StringLength(1500, MinimumLength = 3, ErrorMessage = "Descriptipn cannot be longer than 1500 characters and less 3.")]
         public string Description { get; set; }
 
         [Display(Name = "Release Date"), DataType(DataType.Date)]
@@ -36,8 +36,8 @@ namespace WebAppMovie.Models
         //producers
         public virtual ICollection<Producer> Producers { get; set; }
 
-        ////comments        
-        //public virtual ICollection<Comment> Comments { get; set; }
+        //comments        
+        public virtual ICollection<Comment> Comments { get; set; }
 
         ////score
         //public virtual ICollection<Score> Scores { get; set; }

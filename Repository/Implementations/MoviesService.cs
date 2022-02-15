@@ -21,7 +21,7 @@ namespace WebAppMovie.Repository.Implementations
             _context = context;
         }
 
-        private List<Movie> DoSort(List<Movie> movies, string sortProperty, SortOrder sortOrder)
+        private static List<Movie> DoSort(List<Movie> movies, string sortProperty, SortOrder sortOrder)
         {
             if (sortProperty.ToLower() == "title")
             {
@@ -90,8 +90,8 @@ namespace WebAppMovie.Repository.Implementations
         {
             var response = new NewMovieDropdown()
             {
-                Actors = await _context.Actors.OrderBy(n => n.FullName).ToListAsync(),
-                Producers = await _context.Producers.OrderBy(n => n.FullName).ToListAsync()
+                SelectedActors = await _context.Actors.OrderBy(n => n.FullName).ToListAsync(),
+                SelectedProducers = await _context.Producers.OrderBy(n => n.FullName).ToListAsync()
             };
 
             return response;
