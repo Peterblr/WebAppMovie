@@ -57,10 +57,7 @@ namespace WebAppMovie.Controllers
         // GET: Comments/Create
         public IActionResult Create()
         {
-            var userName = User.Identity.Name;
-
-            ViewBag.UserName = userName;
-
+            ViewBag.UserName = User.Identity.Name;
 
             ViewData["MovieId"] = new SelectList(_context.Movies, "MovieId", "Title");
             return View();
@@ -71,9 +68,25 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CommentId,CommentItem,MovieId,UserId")] Comment comment)
+        public async Task<IActionResult> Create([Bind("CommentId,CommentItem,MovieId,UserId,CreateDate")] Comment comment)
         {
             comment.UserId = User.Identity.Name;
+            if (ModelState.IsValid)
+            {
+                _context.Add(comment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["MovieId"] = new SelectList(_context.Movies, "MovieId", "Title", comment.MovieId);
+            return View(comment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateCommentInMovie([Bind("CommentId,CommentItem,MovieId,UserId,CreateDate")] Comment comment)
+        {
+            comment.UserId = User.Identity.Name;
+
             if (ModelState.IsValid)
             {
                 _context.Add(comment);
@@ -106,7 +119,7 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CommentId,CommentItem,MovieId")] Comment comment)
+        public async Task<IActionResult> Edit(int id, [Bind("CommentId,CommentItem,MovieId,CreateDate")] Comment comment)
         {
             if (id != comment.CommentId)
             {

@@ -55,8 +55,21 @@
                             </div>
                         </p>
                         <p class="card-text"><b>Genre: </b>@Model.Genre</p>
-                        <p class="card-text"><b>Category: </b>@Model.Rating</p>
+                        <p class="card-text"><b>Rating: </b>@Model.Rating</p>
                         <p class="card-text"><b>Day Of Release: </b>@Model.ReleaseDate.ToShortDateString()</p>
+                        <p class="card-text">
+                            <div class="form-group">
+                                <b>Grade: </b>
+                                <span class="text-warning">
+                                    <i class="ratingStar fas fa-star"></i>
+                                    <i class="ratingStar far fa-star"></i>
+                                    <i class="ratingStar far fa-star"></i>
+                                    <i class="ratingStar far fa-star"></i>
+                                    <i class="ratingStar far fa-star"></i>
+                                </span>
+                                5.0
+                            </div>
+                        </p>
                     </div>
                 </div>
                 <div class="card">
@@ -77,57 +90,82 @@
                 </div>
 
 
-                <form asp-controller="Comments" asp-action="Create">
-                    <div class="card">
-                        <div class="card-header text-center">
-                            <h3>leave a comment</h3>
+                @*<form asp-controller="Comments" asp-action="CreateCommentInMovie">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3>leave a comment</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <textarea class="form-control" style="width: 400px"></textarea>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>*@
+
+
+
+
+                @*<div class="card">
+                        <div class="card-header">
+                            <h3>Comments</h3>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
-                                <textarea class="form-control" style="width: 400px"></textarea>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="form-group">
-                                <input type="submit" value="Save" class="btn btn-primary" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Comments</h3>
-                    </div>
-                    <div class="card-body">
-                        @if (Model.Comments.Any())
-                        {
-                            foreach (var comment in Model.Comments)
+                            @if (Model.Comments.Any())
                             {
-                                <div class="card-footer">
-                                    <p>CommentId: @comment.CommentId </p>
-                                    <p>Create Date: @comment.CreateDate</p>
-                                    <h3 class="text-primary">User Id: @comment.UserId</h3>
-                                </div>
-                                <div class="card">
-                                    <p class="card-text">@comment.CommentItem</p>
-                                    <br />
-                                </div>
-                                <a asp-controller="Comments" asp-action="Details" asp-route-id="@comment.CommentId">Edit</a>
+                                foreach (var comment in Model.Comments)
+                                {
+                                    <form asp-controller="Comments" asp-action="CreateCommentInMovie">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <label asp-for="@comment.CommentItem" class="control-label"></label>
+                                            <textarea asp-for="@comment.CommentItem" class="form-control" style="width: 400px"></textarea>
+                                            <span asp-validation-for="@comment.CommentItem" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="submit" value="Create" class="btn btn-primary" />
+                                        </div>
+                                    </form>
+                                    <div class="card-footer">
+                                        <p>CommentId: @comment.CommentId </p>
+                                        <p>Create Date: @comment.CreateDate</p>
+                                        <h3 class="text-primary">User Id: @comment.UserId</h3>
+                                    </div>
+                                    <div class="card">
+                                        <p class="card-text">@comment.CommentItem</p>
+                                        <br />
+                                    </div>
+                                    <a asp-controller="Comments" asp-action="Details" asp-route-id="@comment.CommentId">Edit</a>
+                                }
                             }
-                        }
-                        else
-                        {
-                            <h5 class="card-title">None at the moment</h5>
-                        }
-                    </div>
-                </div>
+                            else
+                            {
+                                <h5 class="card-title">None at the moment</h5>
+                            }
+                        </div>
+                    </div>*@
             </div>
         </div>
     </div>
 </div>
 
+<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(".ratingStar").hover(function () {
+            $(".ratingStar").addClass("far").removeClass("fas");
+
+            $(this).addClass("fas").removeClass("far");
+            $(this).prevAll(".ratingStar").addClass("fas").removeClass("far");
+        });
+    </script>
 }
 

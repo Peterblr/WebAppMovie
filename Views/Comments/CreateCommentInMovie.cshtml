@@ -1,0 +1,24 @@
+﻿@model WebAppMovie.Models.Comment
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+<form asp-controller="Comments" asp-action="CreateCommentInMovie">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="CommentItem" class="control-label"></label>
+        <textarea asp-for="CommentItem" class="form-control" style="width: 400px"></textarea>
+        <span asp-validation-for="CommentItem" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

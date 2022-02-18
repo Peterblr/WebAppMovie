@@ -1,0 +1,44 @@
+﻿@page
+@model RegisterModel
+
+@{
+    ViewData["Title"] = "Register For Admin";
+}
+
+<head>
+    <link href="~/css/Login.css" rel="stylesheet" />
+</head>
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="content">
+    <div class="box">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div class="header">
+                <h1>Create a new account.</h1>
+            </div>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="email">
+                <img src="https://storage.googleapis.com/koloicons/png/line/48-origin-size/48/17%20Settings/Account_2.png">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="passsword">
+                <img src="https://storage.googleapis.com/koloicons/png/line/48-origin-size/48/21%20Control/Lock.png">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="submit">
+                <input type="submit" value="Create User">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

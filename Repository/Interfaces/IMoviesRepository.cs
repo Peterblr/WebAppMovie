@@ -19,5 +19,7 @@ namespace WebAppMovie.Repository.Interfaces
             , string searchText = ""
             , int pageIndex = 1
             , int pageSize = 3);
+
+        Task AddNewMovieAsync(NewMovieViewModel data);
     }
 }

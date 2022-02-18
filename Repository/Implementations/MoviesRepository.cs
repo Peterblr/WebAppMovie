@@ -81,7 +81,6 @@ namespace WebAppMovie.Repository.Implementations
             var movieDetails = await _context.Movies
                 .Include(a => a.Actors)
                 .Include(p => p.Producers)
-                .Include(c => c.Comments)
                 .FirstOrDefaultAsync(n => n.MovieId == id);
 
             return movieDetails;
@@ -96,6 +95,28 @@ namespace WebAppMovie.Repository.Implementations
             };
 
             return response;
+        }
+
+        public async Task AddNewMovieAsync(NewMovieViewModel data)
+        {
+            var newMovie = new Movie()
+            {
+                Title = data.Title,
+                ImageUrl = data.ImageUrl,
+                Description = data.Description,
+                ReleaseDate = data.ReleaseDate,
+                Genre = data.Genre,
+                Rating = data.Rating,
+                Actors = data.ActorsMovie,
+                Producers = data.ProducersMovie,
+                Comments = data.CommentsMovie
+            };
+
+
+
+            await _context.Movies.AddAsync(newMovie);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

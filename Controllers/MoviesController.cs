@@ -11,6 +11,7 @@ using WebAppMovie.Models;
 using WebAppMovie.Repository.Interfaces;
 using NToastNotify;
 using Microsoft.AspNetCore.Authorization;
+using WebAppMovie.Data.ViewModels;
 
 namespace WebAppMovie.Controllers
 {
@@ -94,14 +95,13 @@ namespace WebAppMovie.Controllers
         {
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
 
-            var producers = _producer.GetAllAsync();
+            //var producers = _producer.GetAllAsync();
+
+            //ViewData["ProducerId"] = new SelectList(await producers, "ProducerId", "FullName");
 
 
-            ViewData["ProducerId"] = new SelectList(await producers, "ProducerId", "FullName");
 
-
-
-            ViewBag.Producers = new MultiSelectList(movieDropdownsData.SelectedProducers, "ProducerId", "FullName");
+            ViewBag.Producers = new SelectList(movieDropdownsData.SelectedProducers, "ProducerId", "FullName");
             ViewBag.Actors = new SelectList(movieDropdownsData.SelectedActors, "ActorId", "FullName");
 
             return View();
@@ -112,11 +112,11 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ActorId,ProducerId,CommentId")] Movie movie)
+        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ActorId,ProducerId,CommentId")] NewMovieViewModel movie)
         {
             if (ModelState.IsValid)
             {
-                await _service.AddAsync(movie);
+                await _service.AddNewMovieAsync(movie);
 
                 _toastNotification.AddSuccessToastMessage("Movie created");
 
@@ -124,7 +124,7 @@ namespace WebAppMovie.Controllers
             }
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
 
-            ViewBag.Producers = new MultiSelectList(movieDropdownsData.SelectedProducers, "ProducerId", "FullName");
+            ViewBag.Producers = new SelectList(movieDropdownsData.SelectedProducers, "ProducerId", "FullName");
             ViewBag.Actors = new SelectList(movieDropdownsData.SelectedActors, "ActorId", "FullName");
 
             return View(movie);
