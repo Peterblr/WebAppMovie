@@ -109,7 +109,7 @@ namespace WebAppMovie.Repository.Implementations
                 Rating = data.Rating,
                 Actors = data.ActorsMovie,
                 Comments = data.CommentsMovie,
-                //Producers = data.ProducersMovie
+                Producers = data.ProducersMovie
             };
 
             await _context.Movies.AddAsync(newMovie);

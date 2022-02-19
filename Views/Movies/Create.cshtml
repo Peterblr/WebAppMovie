@@ -63,13 +63,13 @@
                                 </div>*@
 
                             <div class="form-group">
-                                <label asp-for="ProducersMovieId" class="control-label"></label>
+                                <label asp-for="ProducersMovie" class="control-label"></label>
                                 @*<select asp-for="ProducersMovie" class="form-control" asp-items="ViewBag.Producers"></select>*@
                                 @*@Html.DropDownListFor(m => m.ProducersMovie, (MultiSelectList)ViewBag.Producers)*@
                                 @*<span asp-validation-for="ProducersMovie" class="text-danger"></span>*@
 
                                 @Html.DropDownList("Producers", String.Empty)
-                                @Html.ValidationMessageFor(model => model.ProducersMovieId)
+                                @Html.ValidationMessageFor(model => model.ProducersMovie)
 
                             </div>
 
