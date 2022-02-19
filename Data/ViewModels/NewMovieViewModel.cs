@@ -40,7 +40,7 @@ namespace WebAppMovie.Data.ViewModels
 
 
         //producers
-        public List<Producer> ProducersMovie { get; set; }
+        public List<int> ProducersMovieId { get; set; }
 
 
         //comments        

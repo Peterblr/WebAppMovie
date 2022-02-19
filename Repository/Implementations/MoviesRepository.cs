@@ -115,8 +115,18 @@ namespace WebAppMovie.Repository.Implementations
 
             await _context.SaveChangesAsync();
 
+            foreach (var producer in data.ProducersMovieId)
+            {
+                var newProducerMovies = new ProducerMovies()
+                {
+                    MovieId = newMovie.MovieId,
+                    ProducerId = producer
+                };
 
+                await _context.AddAsync(newProducerMovies);
+            }
 
+            await _context.SaveChangesAsync();
         }
     }
 }
