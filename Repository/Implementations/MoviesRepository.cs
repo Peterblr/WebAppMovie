@@ -108,15 +108,15 @@ namespace WebAppMovie.Repository.Implementations
                 Genre = data.Genre,
                 Rating = data.Rating,
                 Actors = data.ActorsMovie,
-                Producers = data.ProducersMovie,
-                Comments = data.CommentsMovie
+                Comments = data.CommentsMovie,
             };
-
-
 
             await _context.Movies.AddAsync(newMovie);
 
             await _context.SaveChangesAsync();
+
+
+
         }
     }
 }
