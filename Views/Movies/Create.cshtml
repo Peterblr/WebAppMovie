@@ -1,5 +1,4 @@
 ﻿@*@model WebAppMovie.Models.Movie*@
-
 @model WebAppMovie.Data.ViewModels.NewMovieViewModel
 
 @using WebAppMovie.Data.Enums
@@ -65,8 +64,13 @@
 
                             <div class="form-group">
                                 <label asp-for="ProducersMovieId" class="control-label"></label>
-                                <select asp-for="ProducersMovieId" class="form-control" asp-items="ViewBag.Producers"></select>
-                                <span asp-validation-for="ProducersMovieId" class="text-danger"></span>
+                                @*<select asp-for="ProducersMovie" class="form-control" asp-items="ViewBag.Producers"></select>*@
+                                @*@Html.DropDownListFor(m => m.ProducersMovie, (MultiSelectList)ViewBag.Producers)*@
+                                @*<span asp-validation-for="ProducersMovie" class="text-danger"></span>*@
+
+                                @Html.DropDownList("Producers", String.Empty)
+                                @Html.ValidationMessageFor(model => model.ProducersMovieId)
+
                             </div>
 
                             @*<div class="form-group">

@@ -18,81 +18,84 @@
 </head>
 <body>
     <header>
-        <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="nav-link text-info" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-film"></i> Movies</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("admin"))
-                    {
+
+        @Html.Partial("_MenuBar")
+
+        @*<nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <a class="nav-link text-info" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-film"></i> Movies</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("admin"))
+                        {
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="bi bi-gear"></i> Admin
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" asp-controller="Admin" asp-action="Index"><i class="bi bi-film"></i> Admin Panel</a>
+                                        <a class="dropdown-item" asp-controller="Admin" asp-action="ListRoles"><i class="bi bi-headset"></i> Roles</a>
+                                        <a class="dropdown-item" asp-controller="Admin" asp-action="ListUsers"><i class="bi bi-people-fill"></i> Users</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="bi bi-gear"></i> Management
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" asp-controller="Manager" asp-action="ListMovies"><i class="bi bi-film"></i> Movies</a>
+                                        <a class="dropdown-item" asp-controller="Manager" asp-action="ListProducers"><i class="bi bi-headset"></i> Producers</a>
+                                        <a class="dropdown-item" asp-controller="Manager" asp-action="ListActors"><i class="bi bi-people-fill"></i> Actors</a>
+                                        <a class="dropdown-item" asp-controller="Comments" asp-action="Index"><i class="bi bi-pencil-square"></i> Comments</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        }
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("manager"))
+                        {
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="bi bi-gear"></i> Management
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" asp-controller="Manager" asp-action="ListMovies"><i class="bi bi-film"></i> Movies</a>
+                                        <a class="dropdown-item" asp-controller="Manager" asp-action="ListProducers"><i class="bi bi-headset"></i> Producers</a>
+                                        <a class="dropdown-item" asp-controller="Manager" asp-action="ListActors"><i class="bi bi-people-fill"></i> Actors</a>
+                                        <a class="dropdown-item" asp-controller="Comments" asp-action="Index"><i class="bi bi-pencil-square"></i> Comments</a>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        }
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bi bi-gear"></i> Admin
+                                    <i class="bi bi-filter-square"></i> Sort
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-controller="Admin" asp-action="Index"><i class="bi bi-film"></i> Admin Panel</a>
-                                    <a class="dropdown-item" asp-controller="Admin" asp-action="ListRoles"><i class="bi bi-headset"></i> Roles</a>
-                                    <a class="dropdown-item" asp-controller="Admin" asp-action="ListUsers"><i class="bi bi-people-fill"></i> Users</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bi bi-gear"></i> Management
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-controller="Manager" asp-action="ListMovies"><i class="bi bi-film"></i> Movies</a>
-                                    <a class="dropdown-item" asp-controller="Manager" asp-action="ListProducers"><i class="bi bi-headset"></i> Producers</a>
-                                    <a class="dropdown-item" asp-controller="Manager" asp-action="ListActors"><i class="bi bi-people-fill"></i> Actors</a>
-                                    <a class="dropdown-item" asp-controller="Comments" asp-action="Index"><i class="bi bi-pencil-square"></i> Comments</a>
+
+                                    <i class="bi bi-sort-alpha-down dropdown-item">
+                                        @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.NameSortParm })
+                                    </i>
+                                    <i class="bi bi-sort-numeric-down">
+                                        @Html.ActionLink("Release Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+                                    </i>
                                 </div>
                             </li>
                         </ul>
-                    }
-                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("manager"))
-                    {
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bi bi-gear"></i> Management
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-controller="Manager" asp-action="ListMovies"><i class="bi bi-film"></i> Movies</a>
-                                    <a class="dropdown-item" asp-controller="Manager" asp-action="ListProducers"><i class="bi bi-headset"></i> Producers</a>
-                                    <a class="dropdown-item" asp-controller="Manager" asp-action="ListActors"><i class="bi bi-people-fill"></i> Actors</a>
-                                    <a class="dropdown-item" asp-controller="Comments" asp-action="Index"><i class="bi bi-pencil-square"></i> Comments</a>
-
-                                </div>
-                            </li>
-                        </ul>
-                    }
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="bi bi-filter-square"></i> Sort
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                <i class="bi bi-sort-alpha-down dropdown-item">
-                                    @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.NameSortParm })
-                                </i>
-                                <i class="bi bi-sort-numeric-down">
-                                    @Html.ActionLink("Release Date", "Index", new { sortOrder = ViewBag.DateSortParm })
-                                </i>
-                            </div>
-                        </li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0 " asp-controller="Movies" asp-action="Index" style="padding-right: 25px;">
-                        <input name="searchString" type="text" class="form-control" placeholder="Search movie" aria-label="Username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
-                    </form>
-                    <partial name="_LoginPartial" />
+                        <form class="form-inline my-2 my-lg-0 " asp-controller="Movies" asp-action="Index" style="padding-right: 25px;">
+                            <input name="searchString" type="text" class="form-control" placeholder="Search movie" aria-label="Username" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                        </form>
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>*@
     </header>
 
     <div class="container">

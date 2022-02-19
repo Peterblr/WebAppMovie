@@ -109,24 +109,26 @@ namespace WebAppMovie.Repository.Implementations
                 Rating = data.Rating,
                 Actors = data.ActorsMovie,
                 Comments = data.CommentsMovie,
+                //Producers = data.ProducersMovie
             };
 
             await _context.Movies.AddAsync(newMovie);
 
             await _context.SaveChangesAsync();
 
-            foreach (var producer in data.ProducersMovieId)
-            {
-                var newProducerMovies = new ProducerMovies()
-                {
-                    MovieId = newMovie.MovieId,
-                    ProducerId = producer
-                };
 
-                await _context.AddAsync(newProducerMovies);
-            }
+            //foreach (var producer in data.ProducersMovieId)
+            //{
+            //    var newProducerMovies = new ProducerMovies()
+            //    {
+            //        MovieId = newMovie.MovieId,
+            //        ProducerId = producer
+            //    };
 
-            await _context.SaveChangesAsync();
+            //    await _context.AddAsync(newProducerMovies);
+            //}
+
+            //await _context.SaveChangesAsync();
         }
     }
 }

@@ -13,6 +13,7 @@ using NToastNotify;
 using Microsoft.AspNetCore.Authorization;
 using WebAppMovie.Data.ViewModels;
 
+
 namespace WebAppMovie.Controllers
 {
     [Authorize(Roles = "admin, manager")]
@@ -112,10 +113,12 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ActorId,ProducerId,CommentId")] NewMovieViewModel movie)
+        //public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ActorId,ProducerId,CommentId")] Movie movie)
+        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ProducersMovieId,ActorId,CommentId")] NewMovieViewModel movie)
         {
             if (ModelState.IsValid)
             {
+                //await _service.AddAsync(movie);
                 await _service.AddNewMovieAsync(movie);
 
                 _toastNotification.AddSuccessToastMessage("Movie created");
