@@ -49,11 +49,6 @@ namespace WebAppMovie.Repository.Base
 
         public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FindAsync(id);
 
-        //public async Task SaveAsync()
-        //{
-        //    await _context.SaveChangesAsync();
-        //}
-
         public async Task UpdateAsync(T newItem)
         {
             _context.Entry(newItem).State = EntityState.Modified;

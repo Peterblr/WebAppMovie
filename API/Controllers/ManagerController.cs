@@ -51,7 +51,7 @@ namespace WebAppMovie.Controllers
 
             ViewBag.searchText = searchText;
 
-            movies = await _serviceMovie.GetAllMoviesAsync(sortModel.SortedProperty, sortModel.SortedOrder, searchText, pg, pageSize);
+            movies = await _serviceMovie.GetAllMoviesPagerAsync(sortModel.SortedProperty, sortModel.SortedOrder, searchText, pg, pageSize);
 
             var pager = new Pager(movies.TotalRecords, pg, pageSize)
             {

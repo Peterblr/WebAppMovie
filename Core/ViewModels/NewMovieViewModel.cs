@@ -10,6 +10,8 @@ namespace WebAppMovie.Data.ViewModels
 {
     public class NewMovieViewModel
     {
+        public int NewMovieId { get; set; }
+
         [Required(ErrorMessage = "Title is required")]
         [Display(Name = "Title"), StringLength(60, MinimumLength = 3)]
         public string Title { get; set; }

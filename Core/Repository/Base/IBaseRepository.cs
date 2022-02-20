@@ -16,6 +16,5 @@ namespace WebAppMovie.Repository.Base
         Task AddAsync(T item);
         Task UpdateAsync(T newItem);
         Task DeleteAsync(int id);
-        //Task SaveAsync();
     }
 }

@@ -1,4 +1,6 @@
-﻿@model WebAppMovie.Models.Movie
+﻿@*@model WebAppMovie.Models.Movie*@
+@model WebAppMovie.Data.ViewModels.NewMovieViewModel
+
 
 @using WebAppMovie.Data.Enums
 @using WebAppMovie.Data
@@ -7,15 +9,18 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<br />
+<h1 class="mt-5">Edit Movie</h1>
+<br />
 
-<h4>Movie</h4>
-<hr />
-<div class="row">
+<div class="row flex-nowrap">
     <div class="col-md-4">
         <form asp-action="Edit">
+            <div class="form-group text-center">
+                <img id="ImagePreview" class="border-info rounded-pill" style="max-width: 150px" />
+            </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="MovieId" />
+            <input type="hidden" asp-for="NewMovieId" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -26,6 +31,17 @@
                 <input asp-for="ImageUrl" class="form-control" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="ProducersMovieId" class="control-label"></label>
+                <select asp-for="ProducersMovieId" class="form-control" asp-items="ViewBag.Producers" multiple></select>
+                <span asp-validation-for="ProducersMovieId" class="text-danger"></span>
+            </div>
+
+            @*<div class="form-group">
+                    <label asp-for="ActorsMovieId" class="control-label"></label>
+                    <select asp-for="ActorsMovieId" class="form-control" asp-items="ViewBag.Actors" multiple></select>
+                    <span asp-validation-for="ActorsMovieId" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
@@ -51,12 +67,73 @@
             </div>
         </form>
     </div>
+    <div class="m-0">
+        <img src="https://cs10.pikabu.ru/post_img/2019/09/02/0/1567374770171861043.jpg" alt="img">
+    </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('ImagePreview');
+            output.src = $("#ImageUrl").val();
+        })
+    </script>
 }
+
+
+@*<h1>Edit</h1>
+
+    <h4>Movie</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="MovieId" />
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageUrl" class="control-label"></label>
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReleaseDate" class="control-label"></label>
+                    <input asp-for="ReleaseDate" class="form-control" />
+                    <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Genre" class="control-label"></label>
+                    <select asp-for="Genre" class="form-control" asp-items="Html.GetEnumSelectList<Genre>()"></select>
+                    <span asp-validation-for="Genre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Rating" class="control-label"></label>
+                    <select asp-for="Rating" class="form-control" asp-items="Html.GetEnumSelectList<Rating>()"></select>
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

@@ -12,14 +12,17 @@ namespace WebAppMovie.Repository.Interfaces
     public interface IMoviesRepository : IBaseRepository<Movie>
     {
         Task<Movie> GetMovieByIdAsync(int id);
+
         Task<NewMovieDropdown> GetMovieDropdownsValues();
 
-        Task<PaginatedList<Movie>> GetAllMoviesAsync(string sortProperty
+        Task<PaginatedList<Movie>> GetAllMoviesPagerAsync(string sortProperty
             , SortOrder sortOrder
             , string searchText = ""
             , int pageIndex = 1
             , int pageSize = 3);
 
         Task AddNewMovieAsync(NewMovieViewModel data);
+
+        Task UpdateNewMovieAsync(NewMovieViewModel data);
     }
 }

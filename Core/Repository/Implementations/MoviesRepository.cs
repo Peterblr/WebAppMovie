@@ -50,7 +50,7 @@ namespace WebAppMovie.Repository.Implementations
             return movies;
         }
 
-        public async Task<PaginatedList<Movie>> GetAllMoviesAsync(string sortProperty
+        public async Task<PaginatedList<Movie>> GetAllMoviesPagerAsync(string sortProperty
             , SortOrder sortOrder
             , string searchText = ""
             , int pageIndex = 1
@@ -141,6 +141,32 @@ namespace WebAppMovie.Repository.Implementations
             }
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateNewMovieAsync(NewMovieViewModel data)
+        {
+            var updateMovie = await _context.Movies.FirstOrDefaultAsync(m => m.MovieId == data.NewMovieId);
+
+            if (updateMovie != null)
+            {
+                updateMovie.Title = data.Title;
+                updateMovie.ImageUrl = data.ImageUrl;
+                updateMovie.Description = data.Description;
+                updateMovie.ReleaseDate = data.ReleaseDate;
+                updateMovie.Genre = data.Genre;
+                updateMovie.Rating = data.Rating;
+
+                // Remove deselected producers
+                updateMovie.Producers.Where(m => data.ProducersMovieId.Contains(m.ProducerId))
+                    .ToList().ForEach(producer => updateMovie.Producers.Remove(producer));
+
+                // Add new producers
+                //var updateProducer = updateMovie.Producers.Select(m => m.ProducerId);
+                //_context.Movies.Where(m => data.ProducersMovieId.Except(updateProducer).Contains(m.MovieId))
+                //    .ToList().ForEach(producer => updateMovie.Producers.Add(producer));
+
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

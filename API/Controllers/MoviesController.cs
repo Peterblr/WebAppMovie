@@ -102,7 +102,7 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ProducersMovieId,ActorsMovieId,CommentId")] NewMovieViewModel movie)
+        public async Task<IActionResult> Create([Bind("NewMovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ProducersMovieId,ActorsMovieId,CommentId")] NewMovieViewModel movie)
         {
             if (ModelState.IsValid)
             {
@@ -123,13 +123,32 @@ namespace WebAppMovie.Controllers
         // GET: Movies/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            var movie = await _service.GetByIdAsync(id);
+            var movie = await _service.GetMovieByIdAsync(id);
+            //var movie = await _service.GetByIdAsync(id);
 
             if (movie == null)
             {
                 return View("NotFound");
             }
-            return View(movie);
+
+            var responce = new NewMovieViewModel()
+            {
+                NewMovieId = movie.MovieId,
+                Title = movie.Title,
+                ImageUrl = movie.ImageUrl,
+                Description = movie.Description,
+                ReleaseDate = movie.ReleaseDate,
+                Genre = movie.Genre,
+                Rating = movie.Rating,
+                ProducersMovieId = movie.Producers.Select(n => n.ProducerId).ToList()
+            };
+
+            var movieDropdownsData = await _service.GetMovieDropdownsValues();
+
+            ViewBag.Producers = new SelectList(movieDropdownsData.SelectedProducers, "ProducerId", "FullName");
+            ViewBag.Actors = new SelectList(movieDropdownsData.SelectedActors, "ActorId", "FullName");
+
+            return View(responce);
         }
 
         // POST: Movies/Edit/5
@@ -137,16 +156,17 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ActorId,ProducersMovieId")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("NewMovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ActorsMovieId,ProducersMovieId")] NewMovieViewModel movie)
         {
-            if (id != movie.MovieId)
+            if (id != movie.NewMovieId)
             {
                 return View("NotFound");
             }
 
             if (ModelState.IsValid)
             {
-                await _service.UpdateAsync(movie);
+                //await _service.UpdateAsync(movie);
+                await _service.UpdateNewMovieAsync(movie);
 
                 _toastNotification.AddSuccessToastMessage("Movie Updated");
 

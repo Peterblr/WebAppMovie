@@ -21,8 +21,7 @@ namespace WebAppMovie.Models
         [Column("FullName")]
         public string FullName { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Date Of Birth"), DataType(DataType.Date)]
         public DateTime DayOfBirth { get; set; }
 
         [Required(ErrorMessage = "Image is required")]
