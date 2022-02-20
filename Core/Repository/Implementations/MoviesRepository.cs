@@ -81,6 +81,7 @@ namespace WebAppMovie.Repository.Implementations
             var movieDetails = await _context.Movies
                 .Include(a => a.Actors)
                 .Include(p => p.Producers)
+                .Include(g => g.Grades)
                 .FirstOrDefaultAsync(n => n.MovieId == id);
 
             return movieDetails;
@@ -109,26 +110,24 @@ namespace WebAppMovie.Repository.Implementations
                 Rating = data.Rating,
                 Actors = data.ActorsMovie,
                 Comments = data.CommentsMovie,
-                Producers = data.ProducersMovie
             };
 
             await _context.Movies.AddAsync(newMovie);
 
             await _context.SaveChangesAsync();
 
+            foreach (var producer in data.ProducersMovie)
+            {
+                var newProducerMovies = new ProducerMovies()
+                {
+                    MovieId = newMovie.MovieId,
+                    ProducerId = producer
+                };
 
-            //foreach (var producer in data.ProducersMovieId)
-            //{
-            //    var newProducerMovies = new ProducerMovies()
-            //    {
-            //        MovieId = newMovie.MovieId,
-            //        ProducerId = producer
-            //    };
+                await _context.AddAsync(newProducerMovies);
+            }
 
-            //    await _context.AddAsync(newProducerMovies);
-            //}
-
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

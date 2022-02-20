@@ -40,6 +40,6 @@ namespace WebAppMovie.Models
         public virtual ICollection<Comment> Comments { get; set; }
 
         ////score
-        //public virtual ICollection<Score> Scores { get; set; }
+        public virtual ICollection<Grade> Grades { get; set; }
     }
 }

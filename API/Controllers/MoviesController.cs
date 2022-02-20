@@ -114,7 +114,7 @@ namespace WebAppMovie.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ActorId,ProducerId,CommentId")] Movie movie)
-        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ProducersMovieId,ActorId,CommentId")] NewMovieViewModel movie)
+        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,Producers,ProducersMovie,ActorId,CommentId")] NewMovieViewModel movie)
         {
             if (ModelState.IsValid)
             {

@@ -17,6 +17,7 @@ namespace WebAppMovie.Data
         public DbSet<Producer> Producers { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Person> Persons { get; set; }
+        public DbSet<Grade> Grades { get; set; }
 
 
 

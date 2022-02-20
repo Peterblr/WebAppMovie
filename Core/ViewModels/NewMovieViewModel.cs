@@ -34,14 +34,16 @@ namespace WebAppMovie.Data.ViewModels
         //Rating
         public Rating Rating { get; set; }
 
+        //Grade
+        //public List<double> Grade { get; set; }
+
 
         //actors
         public List<Actor> ActorsMovie { get; set; }
 
 
         //producers
-        //public List<int> ProducersMovieId { get; set; }
-        public List<Producer> ProducersMovie { get; set; }
+        public List<int> ProducersMovieId { get; set; }
 
 
         //comments        

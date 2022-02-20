@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppMovie.Data;
 
 namespace WebAppMovie.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220220061813_Grades")]
+    partial class Grades
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -303,12 +305,14 @@ namespace WebAppMovie.Data.Migrations
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("UserIdId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("GradeId");
 
                     b.HasIndex("MovieId");
+
+                    b.HasIndex("UserIdId");
 
                     b.ToTable("Grades");
                 });
@@ -510,7 +514,13 @@ namespace WebAppMovie.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserIdId");
+
                     b.Navigation("Movie");
+
+                    b.Navigation("UserId");
                 });
 
             modelBuilder.Entity("WebAppMovie.Models.ProducerMovies", b =>
