@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WebAppMovie.Infrastructure.Models;
 using WebAppMovie.Models;
 
 namespace WebAppMovie.Data
@@ -36,6 +37,21 @@ namespace WebAppMovie.Data
                         .WithMany()
                         .HasForeignKey(m => m.MovieId)
                 );
+
+            modelBuilder.Entity<Movie>()
+                .HasMany(p => p.Actors)
+                .WithMany(m => m.Movies)
+                .UsingEntity<ActorMovies>(
+                    j => j
+                        .HasOne(pm => pm.Actor)
+                        .WithMany()
+                        .HasForeignKey(p => p.ActorId),
+                    j => j
+                        .HasOne(pm => pm.Movie)
+                        .WithMany()
+                        .HasForeignKey(m => m.MovieId)
+                );
+
             base.OnModelCreating(modelBuilder);
         }
     }
