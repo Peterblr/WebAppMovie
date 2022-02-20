@@ -39,7 +39,8 @@ namespace WebAppMovie.Data.ViewModels
 
 
         //actors
-        public List<Actor> ActorsMovie { get; set; }
+        //public List<Actor> ActorsMovie { get; set; }
+        public List<int> ActorsMovieId { get; set; }
 
 
         //producers

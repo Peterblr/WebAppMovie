@@ -21,18 +21,15 @@ namespace WebAppMovie.Controllers
     {
         private readonly IMoviesRepository _service;
 
-        private readonly IProducerRepository _producer;
 
         private readonly IToastNotification _toastNotification;
 
 
-        public MoviesController(IMoviesRepository service, IToastNotification toastNotification, IProducerRepository producer)
+        public MoviesController(IMoviesRepository service, IToastNotification toastNotification)
         {
             _service = service;
 
             _toastNotification = toastNotification;
-
-            _producer = producer;
         }
 
         // GET: Movies
@@ -90,18 +87,10 @@ namespace WebAppMovie.Controllers
             return View(movie);
         }
 
-
         // GET: Movies/Create
         public async Task<IActionResult> Create()
         {
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
-
-            //var producers = _producer.GetAllAsync();
-
-            //ViewData["ProducerId"] = new SelectList(await producers, "ProducerId", "FullName");
-
-
-
             ViewBag.Producers = new SelectList(movieDropdownsData.SelectedProducers, "ProducerId", "FullName");
             ViewBag.Actors = new SelectList(movieDropdownsData.SelectedActors, "ActorId", "FullName");
 
@@ -113,12 +102,10 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ActorId,ProducerId,CommentId")] Movie movie)
-        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,Producers,ProducersMovie,ActorId,CommentId")] NewMovieViewModel movie)
+        public async Task<IActionResult> Create([Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ProducersMovieId,ActorsMovieId,CommentId")] NewMovieViewModel movie)
         {
             if (ModelState.IsValid)
             {
-                //await _service.AddAsync(movie);
                 await _service.AddNewMovieAsync(movie);
 
                 _toastNotification.AddSuccessToastMessage("Movie created");
@@ -150,7 +137,7 @@ namespace WebAppMovie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ActorId,ProducerId")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("MovieId,Title,ImageUrl,Description,ReleaseDate,Genre,Rating,ActorId,ProducersMovieId")] Movie movie)
         {
             if (id != movie.MovieId)
             {

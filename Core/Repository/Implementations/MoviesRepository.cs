@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WebAppMovie.Data;
 using WebAppMovie.Data.Enums;
 using WebAppMovie.Data.ViewModels;
+using WebAppMovie.Infrastructure.Models;
 using WebAppMovie.Models;
 using WebAppMovie.Repository.Base;
 using WebAppMovie.Repository.Interfaces;
@@ -108,7 +109,6 @@ namespace WebAppMovie.Repository.Implementations
                 ReleaseDate = data.ReleaseDate,
                 Genre = data.Genre,
                 Rating = data.Rating,
-                Actors = data.ActorsMovie,
                 Comments = data.CommentsMovie,
             };
 
@@ -116,7 +116,7 @@ namespace WebAppMovie.Repository.Implementations
 
             await _context.SaveChangesAsync();
 
-            foreach (var producer in data.ProducersMovie)
+            foreach (var producer in data.ProducersMovieId)
             {
                 var newProducerMovies = new ProducerMovies()
                 {
@@ -125,6 +125,19 @@ namespace WebAppMovie.Repository.Implementations
                 };
 
                 await _context.AddAsync(newProducerMovies);
+            }
+
+            await _context.SaveChangesAsync();
+
+            foreach (var actors in data.ActorsMovieId)
+            {
+                var newActorMovies = new ActorMovies()
+                {
+                    MovieId = newMovie.MovieId,
+                    ActorId = actors
+                };
+
+                await _context.AddAsync(newActorMovies);
             }
 
             await _context.SaveChangesAsync();
