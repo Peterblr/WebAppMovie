@@ -178,12 +178,12 @@ namespace WebAppMovie.Repository.Implementations
                 }
 
 
-                var equalsProducer = updateMovie.Producers.Where(m => data.ProducersMovieId.Contains(m.ProducerId)).ToList();
+                var equalsProducer = updateMovie.Producers.Where(m => data.ProducersMovieId.Contains(m.ProducerId)).ToList().Count;
 
                 // Add new producers
                 foreach (var producer in data.ProducersMovieId)
                 {
-                    if (equalsProducer.Count == 0)
+                    if (equalsProducer == 0)
                     {
                         var newProducerMovies = new ProducerMovies()
                         {
