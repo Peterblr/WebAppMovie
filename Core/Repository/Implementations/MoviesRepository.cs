@@ -148,10 +148,9 @@ namespace WebAppMovie.Repository.Implementations
 
         public async Task UpdateNewMovieAsync(NewMovieViewModel data)
         {
-            var updateMovie = await _context.Movies.FindAsync(data.NewMovieId);
-            //var updateMovie = await _context.Movies.FirstOrDefaultAsync(m => m.MovieId == data.NewMovieId);
-
-            //updateMovie.Producers.Remove(await _context.Producers.FindAsync(data.ProducersMovieId));
+            var updateMovie = await _context.Movies.Include(p => p.Producers)
+                .Include(a => a.Actors)
+                .FirstOrDefaultAsync(m => m.MovieId == data.NewMovieId);
 
             if (updateMovie != null)
             {
@@ -162,32 +161,61 @@ namespace WebAppMovie.Repository.Implementations
                 updateMovie.Genre = data.Genre;
                 updateMovie.Rating = data.Rating;
 
-
-                var listProd = new ProducerMovies().Producer.FullName;
-
-                //var showProd = listProd.Producer;
-
-                foreach (var producer in data.ProducersMovieId)
+                // Remove deselected producers
+                if (updateMovie.Producers.Count != 0)
                 {
-                    var newProducerMovies = new ProducerMovies()
-                    {
-                        MovieId = updateMovie.MovieId,
-                        ProducerId = producer
-                    };
 
+                    updateMovie.Producers.Where(m => !data.ProducersMovieId.Contains(m.ProducerId))
+                        .ToList().ForEach(producer => updateMovie.Producers.Remove(producer));
                 }
 
-                // Remove deselected producers
-                //updateMovie.Producers.Where(m => data.ProducersMovieId.Contains(m.ProducerId))
-                //    .ToList().ForEach(producer => updateMovie.Producers.Remove(producer));
+                // Remove deselected actors
+                if (updateMovie.Actors.Count != 0)
+                {
+
+                    updateMovie.Actors.Where(m => !data.ActorsMovieId.Contains(m.ActorId))
+                        .ToList().ForEach(actor => updateMovie.Actors.Remove(actor));
+                }
+
+
+                var equalsProducer = updateMovie.Producers.Where(m => data.ProducersMovieId.Contains(m.ProducerId)).ToList();
 
                 // Add new producers
-                //var updateProducer = updateMovie.Producers.Select(m => m.ProducerId);
-                //_context.Movies.Where(m => data.ProducersMovieId.Except(updateProducer).Contains(m.MovieId))
-                //    .ToList().ForEach(producer => updateMovie.Producers.Add(producer));
+                foreach (var producer in data.ProducersMovieId)
+                {
+                    if (equalsProducer.Count == 0)
+                    {
+                        var newProducerMovies = new ProducerMovies()
+                        {
+                            MovieId = updateMovie.MovieId,
+                            ProducerId = producer
+                        };
 
-                await _context.SaveChangesAsync();
+                        await _context.AddAsync(newProducerMovies);
+                    }
+                }
+
+
+                var equalsActors = updateMovie.Actors.Where(m => data.ActorsMovieId.Contains(m.ActorId)).ToList().Count;
+
+                // Add new actors
+                foreach (var actors in data.ActorsMovieId)
+                {
+                    if (equalsActors == 0)
+                    {
+                        var newActorMovies = new ActorMovies()
+                        {
+                            MovieId = updateMovie.MovieId,
+                            ActorId = actors
+                        };
+
+                        await _context.AddAsync(newActorMovies);
+                    }
+                }
             }
+
+            await _context.SaveChangesAsync();
         }
     }
 }
+

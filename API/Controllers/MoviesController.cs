@@ -138,7 +138,8 @@ namespace WebAppMovie.Controllers
                 ReleaseDate = movie.ReleaseDate,
                 Genre = movie.Genre,
                 Rating = movie.Rating,
-                ProducersMovieId = movie.Producers.Select(n => n.ProducerId).ToList()
+                ProducersMovieId = movie.Producers.Select(n => n.ProducerId).ToList(),
+                ActorsMovieId = movie.Actors.Select(a => a.ActorId).ToList()
             };
 
             var movieDropdownsData = await _service.GetMovieDropdownsValues();
