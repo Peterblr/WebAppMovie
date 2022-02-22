@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppMovie.Data;
@@ -83,6 +85,7 @@ namespace WebAppMovie.Repository.Implementations
                 .Include(a => a.Actors)
                 .Include(p => p.Producers)
                 .Include(g => g.Grades)
+                .Include(c => c.Comments)
                 .FirstOrDefaultAsync(n => n.MovieId == id);
 
             return movieDetails;
@@ -145,7 +148,10 @@ namespace WebAppMovie.Repository.Implementations
 
         public async Task UpdateNewMovieAsync(NewMovieViewModel data)
         {
-            var updateMovie = await _context.Movies.FirstOrDefaultAsync(m => m.MovieId == data.NewMovieId);
+            var updateMovie = await _context.Movies.FindAsync(data.NewMovieId);
+            //var updateMovie = await _context.Movies.FirstOrDefaultAsync(m => m.MovieId == data.NewMovieId);
+
+            //updateMovie.Producers.Remove(await _context.Producers.FindAsync(data.ProducersMovieId));
 
             if (updateMovie != null)
             {
@@ -156,9 +162,24 @@ namespace WebAppMovie.Repository.Implementations
                 updateMovie.Genre = data.Genre;
                 updateMovie.Rating = data.Rating;
 
+
+                var listProd = new ProducerMovies().Producer.FullName;
+
+                //var showProd = listProd.Producer;
+
+                foreach (var producer in data.ProducersMovieId)
+                {
+                    var newProducerMovies = new ProducerMovies()
+                    {
+                        MovieId = updateMovie.MovieId,
+                        ProducerId = producer
+                    };
+
+                }
+
                 // Remove deselected producers
-                updateMovie.Producers.Where(m => data.ProducersMovieId.Contains(m.ProducerId))
-                    .ToList().ForEach(producer => updateMovie.Producers.Remove(producer));
+                //updateMovie.Producers.Where(m => data.ProducersMovieId.Contains(m.ProducerId))
+                //    .ToList().ForEach(producer => updateMovie.Producers.Remove(producer));
 
                 // Add new producers
                 //var updateProducer = updateMovie.Producers.Select(m => m.ProducerId);

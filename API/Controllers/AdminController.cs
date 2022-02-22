@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,14 @@ namespace WebAppMovie.Data.Controllers
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IToastNotification _toastNotification;
 
-        public AdminController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+
+        public AdminController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, IToastNotification toastNotification)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _toastNotification = toastNotification;
         }
 
         public IActionResult Index()
@@ -63,6 +67,8 @@ namespace WebAppMovie.Data.Controllers
 
                 if (result.Succeeded)
                 {
+                    _toastNotification.AddSuccessToastMessage("Role created");
+
                     return RedirectToAction("ListRoles");
                 }
 
@@ -121,6 +127,7 @@ namespace WebAppMovie.Data.Controllers
 
                 if (result.Succeeded)
                 {
+                    _toastNotification.AddSuccessToastMessage("Role Updated");
                     return RedirectToAction("ListRoles");
                 }
 
@@ -149,6 +156,7 @@ namespace WebAppMovie.Data.Controllers
 
                 if (result.Succeeded)
                 {
+                    _toastNotification.AddAlertToastMessage("Role Deleted");
                     return RedirectToAction("ListRoles");
                 }
 
@@ -311,6 +319,8 @@ namespace WebAppMovie.Data.Controllers
                     }
                     else
                     {
+                        _toastNotification.AddSuccessToastMessage("Updated");
+
                         return RedirectToAction("EditRole", new { Id = roleId });
                     }
                 }
@@ -362,6 +372,8 @@ namespace WebAppMovie.Data.Controllers
 
                 if (result.Succeeded)
                 {
+                    _toastNotification.AddSuccessToastMessage("User Updated");
+
                     return RedirectToAction("ListUsers");
                 }
 
@@ -390,6 +402,7 @@ namespace WebAppMovie.Data.Controllers
 
                 if (result.Succeeded)
                 {
+                    _toastNotification.AddAlertToastMessage("User Deleted");
                     return RedirectToAction("ListUsers");
                 }
 

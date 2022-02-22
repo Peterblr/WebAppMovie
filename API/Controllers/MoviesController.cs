@@ -21,9 +21,7 @@ namespace WebAppMovie.Controllers
     {
         private readonly IMoviesRepository _service;
 
-
         private readonly IToastNotification _toastNotification;
-
 
         public MoviesController(IMoviesRepository service, IToastNotification toastNotification)
         {
@@ -195,11 +193,16 @@ namespace WebAppMovie.Controllers
         {
             var movie = await _service.GetByIdAsync(id);
 
+            if (movie == null)
+            {
+                return View("NotFound");
+            }
+
             await _service.DeleteAsync(id);
 
             _toastNotification.AddAlertToastMessage("Movie Deleted");
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToRoute(new { controller = "Manager", action = "ListMovies" });
         }
     }
 }
