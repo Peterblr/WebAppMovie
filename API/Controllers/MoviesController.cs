@@ -169,9 +169,13 @@ namespace WebAppMovie.Controllers
 
                 _toastNotification.AddSuccessToastMessage("Movie Updated");
 
+
                 return RedirectToAction(nameof(Index));
+                //return View("~/Views/Manager/ListMovies.cshtml");
             }
             return View(movie);
+            //return View("~/Views/Manager/ListMovies.cshtml", movie);
+
         }
 
         // GET: Movies/Delete/5

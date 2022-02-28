@@ -2,10 +2,13 @@
 
 namespace WebAppMovie.Data.Migrations
 {
-    public partial class AddedtableActorMovies : Migration
+    public partial class @try : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ActorMovie");
+
             migrationBuilder.CreateTable(
                 name: "ActorMovies",
                 columns: table => new

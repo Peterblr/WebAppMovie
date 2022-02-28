@@ -10,8 +10,8 @@ using WebAppMovie.Data;
 namespace WebAppMovie.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220220172821_Added table ActorMovies")]
-    partial class AddedtableActorMovies
+    [Migration("20220228082335_try")]
+    partial class @try
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

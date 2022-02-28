@@ -11,6 +11,8 @@ namespace WebAppMovie.Models
     {
         public int MovieId { get; set; }
 
+
+
         [Required(ErrorMessage = "Title is required")]
         [Display(Name = "Title"), StringLength(60, MinimumLength = 3)]
         public string Title { get; set; }
